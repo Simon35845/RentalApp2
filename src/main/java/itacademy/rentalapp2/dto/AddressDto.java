@@ -13,5 +13,5 @@ public class AddressDto {
     private Long id;
     private String city;
     private String street;
-    private String house_number;
+    private String houseNumber;
 }

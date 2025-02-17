@@ -25,7 +25,7 @@ public class ApartmentEntity {
     @Column
     private Integer floor;
 
-    @Column
+    @Column(name = "count_of_rooms")
     private Integer countOfRooms;
 
     @Column(name = "total_square")

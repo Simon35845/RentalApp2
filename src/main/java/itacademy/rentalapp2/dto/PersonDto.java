@@ -1,7 +1,14 @@
 package itacademy.rentalapp2.dto;
 
-import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class PersonDto {
     private Long id;
     private String name;

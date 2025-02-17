@@ -1,9 +1,9 @@
 package itacademy.rentalapp2.repository;
 
-import itacademy.rentalapp2.entity.LandlordEntity;
+import itacademy.rentalapp2.entity.TenantEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LandlordRepository extends JpaRepository<LandlordEntity, Long> {
+public interface TenantRepository extends JpaRepository<TenantEntity, Long> {
 }
