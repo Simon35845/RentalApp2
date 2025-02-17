@@ -25,6 +25,9 @@ public class ApartmentEntity {
     @Column
     private Integer floor;
 
+    @Column
+    private Integer countOfRooms;
+
     @Column(name = "total_square")
     private Double totalSquare;
 
