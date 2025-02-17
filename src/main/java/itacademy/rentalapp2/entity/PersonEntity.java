@@ -14,7 +14,7 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "person", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"name", "surname", "phone_number"})
 })
-public class PersonEntity {
+public abstract class PersonEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
