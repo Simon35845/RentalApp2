@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Address List</title>
+</head>
+<body>
+<h1>Address List</h1>
+
+<form th:action="@{addresses}" method="get">
+    <label for="city">City</label>
+    <input type="text" id="city" name="city" th:value="${city}" placeholder="Enter city" required>
+    <label for="street">Street</label>
+    <input type="text" id="street" name="street" th:value="${street}" placeholder="Enter street" required>
+    <button type="submit">Filter</button>
+</form>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>City</th>
+        <th>Street</th>
+        <th>House Number</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="address : ${addresses.content}">
+        <td th:text="${address.id}"></td>
+        <td th:text="${address.city}"></td>
+        <td th:text="${address.street}"></td>
+        <td th:text="${address.houseNumber}"></td>
+        <td>
+            <a th:href="@{/addresses/edit/{id}(id=${address.id})}">Edit</a>
+            <a th:href="@{/addresses/delete/{id}(id=${address.id})}">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <span th:if="${addresses.hasPrevious()}">
+        <a th:href="@{/addresses(city=${city}, street=${street},
+        page=${addresses.number - 1}, size=${addresses.size})}">Previous</a>
+    </span>
+    <span th:if="${addresses.hasNext()}">
+        <a th:href="@{/addresses(city=${city}, street=${street},
+        page=${addresses.number + 1}, size=${addresses.size})}">Next</a>
+    </span>
+</div>
+
+<a th:href="@{addresses/save}">Add New Address</a>
+</body>
+</html>
