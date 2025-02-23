@@ -60,4 +60,3 @@ public class AddressController {
         return "redirect:/addresses";
     }
 }
-
