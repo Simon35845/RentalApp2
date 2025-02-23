@@ -49,16 +49,10 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public Page<AddressDto> getAllAddresses(int page, int size) {
+    public Page<AddressDto> getAllAddresses(String city, String street, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<AddressEntity> addressEntities = addressRepository.findAll(pageable);
-        return addressEntities.map(entityToDtoConverter::convert);
-    }
-
-    @Override
-    public Page<AddressDto> getAddressesByCity(String filter, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<AddressEntity> addressEntities = addressRepository.findByCity(filter, pageable);
+        Page<AddressEntity> addressEntities = addressRepository
+                .findByCityIgnoreCaseAndStreetIgnoreCase(city, street, pageable);
         return addressEntities.map(entityToDtoConverter::convert);
     }
 }

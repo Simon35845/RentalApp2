@@ -8,6 +8,5 @@ public interface AddressService {
     AddressDto updateAddress(Long id, AddressDto addressDto);
     void deleteAddress(Long id);
     AddressDto getAddressById(Long id);
-    Page<AddressDto> getAllAddresses(int page, int size);
-    Page<AddressDto> getAddressesByCity(String filter, int page, int size);
+    Page<AddressDto> getAllAddresses(String city, String street, int page, int size);
 }

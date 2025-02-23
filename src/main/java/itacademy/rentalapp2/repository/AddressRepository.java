@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AddressRepository extends JpaRepository<AddressEntity, Long> {
-    Page<AddressEntity> findByCity(String city, Pageable pageable);
+    Page<AddressEntity> findByCityIgnoreCaseAndStreetIgnoreCase(String city, String street, Pageable pageable);
 }
