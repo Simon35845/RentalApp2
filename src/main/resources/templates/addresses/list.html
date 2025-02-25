@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Address List</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <h1>Address List</h1>
 
 <form th:action="@{addresses}" method="get">
     <label for="city">City</label>
-    <input type="text" id="city" name="city" th:value="${city}" placeholder="Enter city" required>
+    <input type="text" id="city" name="city" th:value="${addressFilter.getCity()}" placeholder="Enter city">
     <label for="street">Street</label>
-    <input type="text" id="street" name="street" th:value="${street}" placeholder="Enter street" required>
+    <input type="text" id="street" name="street" th:value="${addressFilter.getStreet()}" placeholder="Enter street">
     <button type="submit">Filter</button>
 </form>
 <table border="1">
@@ -39,16 +40,29 @@
 </table>
 
 <div>
-    <span th:if="${addresses.hasPrevious()}">
-        <a th:href="@{/addresses(city=${city}, street=${street},
+        <span th:if="${addresses.hasPrevious()}">
+        <a th:href="@{/addresses(city=${addressFilter.city != null ? addressFilter.city : ''},
+        street=${addressFilter.street != null ? addressFilter.street : ''},
         page=${addresses.number - 1}, size=${addresses.size})}">Previous</a>
     </span>
     <span th:if="${addresses.hasNext()}">
-        <a th:href="@{/addresses(city=${city}, street=${street},
+        <a th:href="@{/addresses(city=${addressFilter.city != null ? addressFilter.city : ''},
+        street=${addressFilter.street != null ? addressFilter.street : ''},
         page=${addresses.number + 1}, size=${addresses.size})}">Next</a>
     </span>
+<!--    <span th:if="${addresses.hasPrevious()}">
+            <a th:href="@{/addresses(city=${addressFilter.city}, street=${addressFilter.street},
+            page=${addresses.number - 1}, size=${addresses.size})}">Previous</a>
+    </span>
+    <span th:if="${addresses.hasNext()}">
+            <a th:href="@{/addresses(city=${addressFilter.city}, street=${addressFilter.street},
+            page=${addresses.number + 1}, size=${addresses.size})}">Next</a>
+    </span>-->
 </div>
 
+<div>
+    <span>Page [[${addresses.number + 1}]] of [[${addresses.totalPages}]]</span>
+</div>
 <a th:href="@{addresses/save}">Add New Address</a>
 </body>
 </html>

@@ -1,28 +1,30 @@
 package itacademy.rentalapp2.service;
 
-import itacademy.rentalapp2.converter.AddressDtoToEntityConverter;
-import itacademy.rentalapp2.converter.AddressEntityToDtoConverter;
 import itacademy.rentalapp2.dto.AddressDto;
+import itacademy.rentalapp2.dto.AddressFilterDto;
 import itacademy.rentalapp2.entity.AddressEntity;
 import itacademy.rentalapp2.repository.AddressRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AddressServiceImpl implements AddressService {
     private final AddressRepository addressRepository;
-    private final AddressDtoToEntityConverter dtoToEntityConverter;
-    private final AddressEntityToDtoConverter entityToDtoConverter;
+    private final ConversionService conversionService;
 
     @Override
     public AddressDto saveAddress(AddressDto addressDto) {
-        AddressEntity addressEntity = dtoToEntityConverter.convert(addressDto);
+        AddressEntity addressEntity = conversionService.convert(addressDto, AddressEntity.class);
         AddressEntity savedEntity = addressRepository.save(addressEntity);
-        return entityToDtoConverter.convert(savedEntity);
+        return conversionService.convert(savedEntity, AddressDto.class);
     }
 
     @Override
@@ -33,11 +35,11 @@ public class AddressServiceImpl implements AddressService {
         addressEntity.setStreet(addressDto.getStreet());
         addressEntity.setHouseNumber(addressDto.getHouseNumber());
         AddressEntity updatedEntity = addressRepository.save(addressEntity);
-        return entityToDtoConverter.convert(updatedEntity);
+        return conversionService.convert(updatedEntity, AddressDto.class);
     }
 
     @Override
-    public void deleteAddress(Long id) {
+    public void deleteAddress1(Long id) {
         addressRepository.deleteById(id);
     }
 
@@ -45,14 +47,35 @@ public class AddressServiceImpl implements AddressService {
     public AddressDto getAddressById(Long id) {
         AddressEntity addressEntity = addressRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Address not found"));
-        return entityToDtoConverter.convert(addressEntity);
+        return conversionService.convert(addressEntity, AddressDto.class);
     }
 
     @Override
-    public Page<AddressDto> getAllAddresses(String city, String street, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<AddressEntity> addressEntities = addressRepository
-                .findByCityIgnoreCaseAndStreetIgnoreCase(city, street, pageable);
-        return addressEntities.map(entityToDtoConverter::convert);
+    public Page<AddressDto> getAddressesByFilter(AddressFilterDto filter) {
+        Pageable pageable = PageRequest.of(filter.getPageNumber(), filter.getPageSize());
+        //sout
+        System.out.println("Address Page Number: " + filter.getPageNumber());
+        System.out.println("Address Page Size: " + filter.getPageSize());
+
+        Page<AddressEntity> addressesPage;
+        String city = filter.getCity();
+        String street = filter.getStreet();
+
+        if (StringUtils.hasText(city) && StringUtils.hasText(street)) {
+            addressesPage = addressRepository.findByCityIgnoreCaseAndStreetIgnoreCase(
+                    filter.getCity(), filter.getStreet(), pageable);
+        } else if (StringUtils.hasText(city)) {
+            addressesPage = addressRepository.findByCityIgnoreCase(
+                    filter.getCity(), pageable);
+        } else if (StringUtils.hasText(street)) {
+            addressesPage = addressRepository.findByStreetIgnoreCase(
+                    filter.getStreet(), pageable);
+        } else {
+            addressesPage = addressRepository.findAll(pageable);
+        }
+        //sout
+        System.out.println("Entities found: " + addressesPage.getTotalElements());
+        return addressesPage.map(addressEntity ->
+                conversionService.convert(addressEntity, AddressDto.class));
     }
 }

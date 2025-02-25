@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Edit Address</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
 <h1>Edit Address</h1>
 
 <form th:action="@{/addresses/edit/{id}(id=${address.id})}" th:object="${address}" method="post">
-  <div>
-    <label for="city">City:</label>
-    <input type="text" id="city" th:field="*{city}" required>
-  </div>
-  <div>
-    <label for="street">Street:</label>
-    <input type="text" id="street" th:field="*{street}" required>
-  </div>
-  <div>
-    <label for="houseNumber">House Number:</label>
-    <input type="text" id="houseNumber" th:field="*{houseNumber}" required>
-  </div>
-  <button type="submit">Update</button>
+    <div>
+        <label for="city">City:</label>
+        <input type="text" id="city" th:field="*{city}" required>
+    </div>
+    <div>
+        <label for="street">Street:</label>
+        <input type="text" id="street" th:field="*{street}" required>
+    </div>
+    <div>
+        <label for="houseNumber">House Number:</label>
+        <input type="text" id="houseNumber" th:field="*{houseNumber}" required>
+    </div>
+    <button type="submit">Update</button>
 </form>
 
 <a th:href="@{/addresses}">Back to List</a>
