@@ -52,12 +52,15 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public Page<AddressDto> getAddressesByFilter(AddressFilterDto filter) {
-        Pageable pageable = PageRequest.of(filter.getPageNumber(), filter.getPageSize());
-        //sout
-        System.out.println("Address Page Number: " + filter.getPageNumber());
-        System.out.println("Address Page Size: " + filter.getPageSize());
+        int pageNumber = filter.getPageNumber() - 1;
 
+        if (pageNumber < 0) {
+            pageNumber = 0;
+        }
+
+        Pageable pageable = PageRequest.of(pageNumber, filter.getPageSize());
         Page<AddressEntity> addressesPage;
+
         String city = filter.getCity();
         String street = filter.getStreet();
 
@@ -73,8 +76,13 @@ public class AddressServiceImpl implements AddressService {
         } else {
             addressesPage = addressRepository.findAll(pageable);
         }
-        //sout
-        System.out.println("Entities found: " + addressesPage.getTotalElements());
+
+        if (pageNumber >= addressesPage.getTotalPages()) {
+            pageNumber = addressesPage.getTotalPages() - 1;
+            pageable = PageRequest.of(pageNumber, filter.getPageSize());
+            addressesPage = addressRepository.findAll(pageable);
+        }
+
         return addressesPage.map(addressEntity ->
                 conversionService.convert(addressEntity, AddressDto.class));
     }

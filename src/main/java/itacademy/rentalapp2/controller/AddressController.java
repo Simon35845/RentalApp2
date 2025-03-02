@@ -20,9 +20,9 @@ public class AddressController {
     @GetMapping
     public String getAllAddresses(@ModelAttribute("addressFilter") AddressFilterDto addressFilter,
                                   Model model) {
-        Page<AddressDto> addressesPage = addressService.getAddressesByFilter(addressFilter);
-        model.addAttribute("addresses", addressesPage);
-        model.addAttribute("addressFilter", addressFilter);
+            Page<AddressDto> addressesPage = addressService.getAddressesByFilter(addressFilter);
+            model.addAttribute("addresses", addressesPage);
+            model.addAttribute("addressFilter", addressFilter);
         return "addresses/list";
     }
 
@@ -54,7 +54,7 @@ public class AddressController {
                                 @Valid @ModelAttribute AddressDto addressDto,
                                 BindingResult result) {
         if (result.hasErrors()) {
-            return "addresses/edit/{id}";
+            return "addresses/edit";
         }
         addressService.updateAddress(id, addressDto);
         return "redirect:/addresses";
