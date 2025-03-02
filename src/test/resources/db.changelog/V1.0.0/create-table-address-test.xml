@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet id="test-1" author="Simon">
+        <insert tableName="address">
+            <column name="city" value="Город 572" type="varchar(255)"/>
+            <column name="street" value="Сталелитейная" type="varchar(255)"/>
+            <column name="house_number" value="134" type="varchar(255)"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Город 302" type="varchar(255)"/>
+            <column name="street" value="Быстрокаменская" type="varchar(255)"/>
+            <column name="house_number" value="98" type="varchar(255)"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Город 238" type="varchar(255)"/>
+            <column name="street" value="Демократическая" type="varchar(255)"/>
+            <column name="house_number" value="231" type="varchar(255)"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

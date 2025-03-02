@@ -14,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.sql.SQLOutput;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class App1 {
     public static void main(String[] args) {
         ApplicationContext context = SpringApplication.run(App1.class, args);
