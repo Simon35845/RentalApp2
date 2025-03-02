@@ -62,7 +62,7 @@ public class AddressController {
 
     @GetMapping("/delete/{id}")
     public String deleteAddress(@PathVariable Long id) {
-        addressService.deleteAddress1(id);
+        addressService.deleteAddress(id);
         return "redirect:/addresses";
     }
 }

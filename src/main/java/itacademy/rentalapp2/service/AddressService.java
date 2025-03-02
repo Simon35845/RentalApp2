@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 public interface AddressService {
     AddressDto saveAddress(AddressDto addressDto);
     AddressDto updateAddress(Long id, AddressDto addressDto);
-    void deleteAddress1(Long id);
+    void deleteAddress(Long id);
     AddressDto getAddressById(Long id);
     Page<AddressDto> getAddressesByFilter(AddressFilterDto filter);
 }
