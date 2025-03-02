@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 public class PageFilterDto {
     @Builder.Default
-    private int pageNumber = 0;
+    private int pageNumber = 1;
     @Builder.Default
     private int pageSize = 5;
 }
