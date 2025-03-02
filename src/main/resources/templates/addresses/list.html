@@ -10,9 +10,9 @@
 
 <form th:action="@{addresses}" method="get">
     <label for="city">City</label>
-    <input type="text" id="city" name="city" th:value="${addressFilter.getCity()}" placeholder="Enter city">
+    <input type="text" id="city" name="city" th:value="${addressFilter.city}" placeholder="Enter city">
     <label for="street">Street</label>
-    <input type="text" id="street" name="street" th:value="${addressFilter.getStreet()}" placeholder="Enter street">
+    <input type="text" id="street" name="street" th:value="${addressFilter.street}" placeholder="Enter street">
     <button type="submit">Filter</button>
 </form>
 <table border="1">
@@ -40,24 +40,22 @@
 </table>
 
 <div>
-        <span th:if="${addresses.hasPrevious()}">
-        <a th:href="@{/addresses(city=${addressFilter.city != null ? addressFilter.city : ''},
-        street=${addressFilter.street != null ? addressFilter.street : ''},
-        page=${addresses.number - 1}, size=${addresses.size})}">Previous</a>
-    </span>
-    <span th:if="${addresses.hasNext()}">
-        <a th:href="@{/addresses(city=${addressFilter.city != null ? addressFilter.city : ''},
-        street=${addressFilter.street != null ? addressFilter.street : ''},
-        page=${addresses.number + 1}, size=${addresses.size})}">Next</a>
-    </span>
-<!--    <span th:if="${addresses.hasPrevious()}">
-            <a th:href="@{/addresses(city=${addressFilter.city}, street=${addressFilter.street},
-            page=${addresses.number - 1}, size=${addresses.size})}">Previous</a>
-    </span>
-    <span th:if="${addresses.hasNext()}">
-            <a th:href="@{/addresses(city=${addressFilter.city}, street=${addressFilter.street},
-            page=${addresses.number + 1}, size=${addresses.size})}">Next</a>
-    </span>-->
+    <div th:if="${addresses.hasPrevious()}">
+        <form th:action="@{/addresses}" method="get">
+            <input type="hidden" th:name="city" th:value="${city}">
+            <input type="hidden" th:name="street" th:value="${street}">
+            <input type="hidden" th:name="pageNumber" th:value="${addresses.number - 1}">
+            <button type="submit">Previous</button>
+        </form>
+    </div>
+    <div th:if="${addresses.hasNext()}">
+        <form th:action="@{/addresses}" method="get">
+            <input type="hidden" th:name="city" th:value="${city}">
+            <input type="hidden" th:name="street" th:value="${street}">
+            <input type="hidden" th:name="pageNumber" th:value="${addresses.number + 1}">
+            <button type="submit">Next</button>
+        </form>
+    </div>
 </div>
 
 <div>
