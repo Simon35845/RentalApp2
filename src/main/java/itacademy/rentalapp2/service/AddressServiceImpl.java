@@ -4,6 +4,7 @@ import itacademy.rentalapp2.dto.AddressDto;
 import itacademy.rentalapp2.dto.AddressFilterDto;
 import itacademy.rentalapp2.entity.AddressEntity;
 import itacademy.rentalapp2.repository.AddressRepository;
+import itacademy.rentalapp2.specification.AddressSpecification;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -92,29 +94,17 @@ public class AddressServiceImpl implements AddressService {
         LOGGER.debug("Fetching addresses by filter: {}", filter);
         try {
             int pageNumber = filter.getPageNumber() - 1;
-
             if (pageNumber < 0) {
                 pageNumber = 0;
             }
 
             Pageable pageable = PageRequest.of(pageNumber, filter.getPageSize());
-            Page<AddressEntity> addressesPage;
 
-            String city = filter.getCity();
-            String street = filter.getStreet();
+            Specification<AddressEntity> spec = Specification
+                    .where(AddressSpecification.hasCity(filter.getCity()))
+                    .and(AddressSpecification.hasStreet(filter.getStreet()));
 
-            if (StringUtils.hasText(city) && StringUtils.hasText(street)) {
-                addressesPage = addressRepository.findByCityIgnoreCaseAndStreetIgnoreCase(
-                        filter.getCity(), filter.getStreet(), pageable);
-            } else if (StringUtils.hasText(city)) {
-                addressesPage = addressRepository.findByCityIgnoreCase(
-                        filter.getCity(), pageable);
-            } else if (StringUtils.hasText(street)) {
-                addressesPage = addressRepository.findByStreetIgnoreCase(
-                        filter.getStreet(), pageable);
-            } else {
-                addressesPage = addressRepository.findAll(pageable);
-            }
+            Page<AddressEntity> addressesPage = addressRepository.findAll(spec, pageable);
 
             if (pageNumber > addressesPage.getTotalPages()) {
                 pageNumber = addressesPage.getTotalPages() - 1;
