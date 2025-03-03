@@ -65,4 +65,9 @@ public class AddressController {
         addressService.deleteAddress(id);
         return "redirect:/addresses";
     }
+
+    @GetMapping("/main")
+    public String mainPage() {
+        return "main";
+    }
 }

@@ -26,5 +26,5 @@ public class AddressEntity {
     private String street;
 
     @Column(name = "house_number", nullable = false)
-    private String houseNumber;
+    private Integer houseNumber;
 }

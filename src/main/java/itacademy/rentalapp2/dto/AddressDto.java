@@ -1,6 +1,7 @@
 package itacademy.rentalapp2.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,6 @@ public class AddressDto {
     @NotBlank(message = "field \"Street\" can't be empty")
     private String street;
 
-    @NotBlank(message = "field \"House Number\" can't be empty")
-    private String houseNumber;
+    @NotNull(message = "field \"House Number\" can't be empty")
+    private Integer houseNumber;
 }

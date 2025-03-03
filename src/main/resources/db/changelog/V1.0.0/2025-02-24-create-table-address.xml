@@ -15,7 +15,7 @@
             <column name="street" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="house_number" type="varchar(255)">
+            <column name="house_number" type="int">
                 <constraints nullable="false"/>
             </column>
         </createTable>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet id="init-address" author="Simon">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM address</sqlCheck>
+        </preConditions>
+
+        <insert tableName="address">
+            <column name="city" value="Минск"/>
+            <column name="street" value="Партизанский пр-т"/>
+            <column name="house_number" value="321"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Минск"/>
+            <column name="street" value="пр-т Независимости"/>
+            <column name="house_number" value="457"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Брест"/>
+            <column name="street" value="Коммунистическая"/>
+            <column name="house_number" value="124"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Витебск"/>
+            <column name="street" value="Петропавловская"/>
+            <column name="house_number" value="126"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Витебск"/>
+            <column name="street" value="Петропавловская"/>
+            <column name="house_number" value="35"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Гродно"/>
+            <column name="street" value="Стародворская"/>
+            <column name="house_number" value="98"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Гродно"/>
+            <column name="street" value="Стеклянная"/>
+            <column name="house_number" value="85"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Могилев"/>
+            <column name="street" value="Нефтяная"/>
+            <column name="house_number" value="55"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Минск"/>
+            <column name="street" value="Уральская"/>
+            <column name="house_number" value="42"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Гомель"/>
+            <column name="street" value="Шахтинская"/>
+            <column name="house_number" value="48"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Минск"/>
+            <column name="street" value="пр-т Независимости"/>
+            <column name="house_number" value="42"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Минск"/>
+            <column name="street" value="пр-т Независимости"/>
+            <column name="house_number" value="84"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Брест"/>
+            <column name="street" value="Быкова"/>
+            <column name="house_number" value="139"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Барановичи"/>
+            <column name="street" value="Железнодорожная"/>
+            <column name="house_number" value="79"/>
+        </insert>
+        <insert tableName="address">
+            <column name="city" value="Барановичи"/>
+            <column name="street" value="Советская"/>
+            <column name="house_number" value="105"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

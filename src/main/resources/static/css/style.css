@@ -82,7 +82,7 @@ td {
 
 .filter-container {
     display: flex;
-    justify-content: space-between; /* Равномерное распределение пространства */
+    justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 20px;
 }

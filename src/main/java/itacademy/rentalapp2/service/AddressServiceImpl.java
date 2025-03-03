@@ -116,7 +116,7 @@ public class AddressServiceImpl implements AddressService {
                 addressesPage = addressRepository.findAll(pageable);
             }
 
-            if (pageNumber >= addressesPage.getTotalPages()) {
+            if (pageNumber > addressesPage.getTotalPages()) {
                 pageNumber = addressesPage.getTotalPages() - 1;
                 pageable = PageRequest.of(pageNumber, filter.getPageSize());
                 addressesPage = addressRepository.findAll(pageable);
