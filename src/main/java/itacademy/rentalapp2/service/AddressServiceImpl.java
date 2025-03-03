@@ -50,7 +50,7 @@ public class AddressServiceImpl implements AddressService {
             addressEntity.setStreet(addressDto.getStreet());
             addressEntity.setHouseNumber(addressDto.getHouseNumber());
             AddressEntity updatedEntity = addressRepository.save(addressEntity);
-            LOGGER.error("Address updated successfully: {}", updatedEntity);
+            LOGGER.debug("Address updated successfully: {}", updatedEntity);
             return conversionService.convert(updatedEntity, AddressDto.class);
         } catch (Exception e) {
             LOGGER.error("Error updating address with id {}: {}", id, addressDto, e);

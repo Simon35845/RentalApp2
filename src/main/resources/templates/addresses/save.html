@@ -6,23 +6,30 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h1>Add New Address</h1>
+<h1>Добавление нового адреса</h1>
 
 <form th:action="@{/addresses/save}" th:object="${address}" method="post">
     <div>
-        <label for="city">City:</label>
+        <label for="city">Город:</label>
         <input type="text" id="city" th:field="*{city}" required>
     </div>
     <div>
-        <label for="street">Street:</label>
+        <label for="street">Улица:</label>
         <input type="text" id="street" th:field="*{street}" required>
     </div>
     <div>
-        <label for="houseNumber">House Number:</label>
+        <label for="houseNumber">Номер дома:</label>
         <input type="text" id="houseNumber" th:field="*{houseNumber}" required>
     </div>
-    <button type="submit">Save</button>
+    <div class="button-container-1">
+        <button class="save-button" type="submit">Сохранить</button>
+    </div>
+
 </form>
-<a th:href="@{/addresses}">Back to List</a>
+
+<div class="button-container-1">
+    <a class="list-link-button" th:href="@{/addresses}">Вернуться к списку адресов</a>
+    <a class="main-link-button" th:href="@{main}">Перейти на главную страницу</a>
+</div>
 </body>
 </html>

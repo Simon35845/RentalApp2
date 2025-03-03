@@ -20,11 +20,11 @@ td {
     background-color: rgba(230, 230, 200, 0.78);
 }
 
+.save-button,
 .update-button,
 .delete-button,
-.apartments-button,
 .save-link-button,
-.apartments-list-link-button,
+.list-link-button,
 .pagination-button,
 .main-link-button {
     padding: 10px 20px;
@@ -46,28 +46,22 @@ td {
     background-color: #f44336;
 }
 
-.apartments-button {
-    background-color: rgba(184, 103, 45, 0.8);
-}
-
-.apartments-list-link-button {
+.list-link-button {
     background-color: #007BFF;
-    width: 180px;
+    /*width: 180px;*/
 }
 
+.save-button,
 .save-link-button {
     background-color: #43a600;
-    width: 180px;
 }
 
 .main-link-button {
     background-color: #8f55cc;
-    width: 180px;
 }
 
 .pagination-button {
     background-color: #ff00a6;
-    width: 180px;
 }
 
 .button-container-1 {
@@ -87,12 +81,8 @@ td {
 }
 
 .filter-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    flex-direction: row;
-    gap: 30px;
-    margin-top: 30px;
-    margin-outside: 60px;
+    display: flex;
+    justify-content: space-between; /* Равномерное распределение пространства */
     align-items: flex-end;
     margin-bottom: 20px;
 }
@@ -111,11 +101,11 @@ td {
     margin-bottom: 20px;
 }
 
+.save-button:hover,
 .update-button:hover,
 .delete-button:hover,
-.apartments-button:hover,
 .save-link-button:hover,
-.apartments-list-link-button:hover,
+.list-link-button:hover,
 .pagination-button,
 .main-link-button:hover {
     opacity: 0.8;
