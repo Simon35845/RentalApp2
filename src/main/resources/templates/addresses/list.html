@@ -11,17 +11,11 @@
 
 <div class="filter-container">
     <form th:action="@{addresses}" method="get">
-        <div class="filter-item">
             <label for="city">Город</label>
             <input type="text" id="city" name="city" th:value="${addressFilter.city}" placeholder="Введите город">
-        </div>
-        <div class="filter-item">
             <label for="street">Улица</label>
             <input type="text" id="street" name="street" th:value="${addressFilter.street}" placeholder="Введите улицу">
-        </div>
-        <div class="filter-item">
             <button class="pagination-button" type="submit">Фильтрация</button>
-        </div>
     </form>
 </div>
 
