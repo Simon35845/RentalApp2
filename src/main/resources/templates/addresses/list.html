@@ -4,17 +4,27 @@
     <meta charset="UTF-8">
     <title>Address List</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+
 </head>
 <body>
 <h1>Address List</h1>
 
-<form th:action="@{addresses}" method="get">
-    <label for="city">City</label>
-    <input type="text" id="city" name="city" th:value="${addressFilter.city}" placeholder="Enter city">
-    <label for="street">Street</label>
-    <input type="text" id="street" name="street" th:value="${addressFilter.street}" placeholder="Enter street">
-    <button type="submit">Filter</button>
-</form>
+<div class="filter-container">
+    <form th:action="@{addresses}" method="get">
+<!--        <div class="filter-item">-->
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" th:value="${addressFilter.city}" placeholder="Enter city">
+<!--        </div>-->
+<!--        <div class="filter-item">-->
+            <label for="street">Street</label>
+            <input type="text" id="street" name="street" th:value="${addressFilter.street}" placeholder="Enter street">
+<!--        </div>-->
+<!--        <div class="filter-item">-->
+            <button type="submit" class="pagination-button">Filter</button>
+<!--        </div>-->
+    </form>
+</div>
+
 <table border="1">
     <thead>
     <tr>
@@ -32,30 +42,34 @@
         <td th:text="${address.street}"></td>
         <td th:text="${address.houseNumber}"></td>
         <td>
-            <a th:href="@{/addresses/edit/{id}(id=${address.id})}">Edit</a>
-            <a th:href="@{/addresses/delete/{id}(id=${address.id})}">Delete</a>
+            <div class="button-container-2">
+            <a class="update-button" th:href="@{/addresses/edit/{id}(id=${address.id})}">Edit</a>
+            <a class="delete-button" th:href="@{/addresses/delete/{id}(id=${address.id})}">Delete</a>
+            </div>
         </td>
     </tr>
     </tbody>
 </table>
 
-<div>
-    <div th:if="${addresses.hasPrevious()}">
-        <form th:action="@{/addresses}" method="get">
+<div class="button-container-1">
+    <a class="save-link-button" th:href="@{addresses/save}">Add New Address</a>
+    <a class="apartments-list-link-button" th:href="@{/apartments}">Apartments List</a>
+    <a class="main-link-button" th:href="@{/}">Main Page</a>
+</div>
+
+<div class="pagination-container">
+        <form th:action="@{/addresses}" method="get" th:if="${addresses.hasPrevious()}">
             <input type="hidden" th:name="city" th:value="${addressFilter.city}">
             <input type="hidden" th:name="street" th:value="${addressFilter.street}">
             <input type="hidden" th:name="pageNumber" th:value="${addresses.number}">
-            <button type="submit">Previous</button>
+            <button type="submit" class="pagination-button">Previous</button>
         </form>
-    </div>
-    <div th:if="${addresses.hasNext()}">
-        <form th:action="@{/addresses}" method="get">
+        <form th:action="@{/addresses}" method="get" th:if="${addresses.hasNext()}">
             <input type="hidden" th:name="city" th:value="${addressFilter.city}">
             <input type="hidden" th:name="street" th:value="${addressFilter.street}">
             <input type="hidden" th:name="pageNumber" th:value="${addresses.number + 2}">
-            <button type="submit">Next</button>
+            <button type="submit" class="pagination-button">Next</button>
         </form>
-    </div>
 </div>
 
 <div>
@@ -64,13 +78,12 @@
         <input type="number" id="pageNumber" name="pageNumber" th:value="${addresses.number + 1}">
         <input type="hidden" th:name="city" th:value="${addressFilter.city}">
         <input type="hidden" th:name="street" th:value="${addressFilter.street}">
-        <button type="submit">Go</button>
+        <button type="submit" class="pagination-button">Go</button>
     </form>
 </div>
 
 <div>
     <span>Page [[${addresses.number + 1}]] of [[${addresses.totalPages}]]</span>
 </div>
-<a th:href="@{addresses/save}">Add New Address</a>
 </body>
 </html>

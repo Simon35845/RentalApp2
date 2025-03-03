@@ -1,3 +1,122 @@
-.error {
-    color: red
+body {
+    margin: 20px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: rgba(204, 225, 216, 0.7);
+}
+
+td {
+    background-color: rgba(230, 230, 200, 0.78);
+}
+
+.update-button,
+.delete-button,
+.apartments-button,
+.save-link-button,
+.apartments-list-link-button,
+.pagination-button,
+.main-link-button {
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.update-button {
+    background-color: #FF881F;
+}
+
+.delete-button {
+    background-color: #f44336;
+}
+
+.apartments-button {
+    background-color: rgba(184, 103, 45, 0.8);
+}
+
+.apartments-list-link-button {
+    background-color: #007BFF;
+    width: 180px;
+}
+
+.save-link-button {
+    background-color: #43a600;
+    width: 180px;
+}
+
+.main-link-button {
+    background-color: #8f55cc;
+    width: 180px;
+}
+
+.pagination-button {
+    background-color: #ff00a6;
+    width: 180px;
+}
+
+.button-container-1 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+    max-width: 400px;
+    justify-items: start;
+}
+
+.button-container-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.filter-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    flex-direction: row;
+    gap: 30px;
+    margin-top: 30px;
+    margin-outside: 60px;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: start;
+    gap: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.update-button:hover,
+.delete-button:hover,
+.apartments-button:hover,
+.save-link-button:hover,
+.apartments-list-link-button:hover,
+.pagination-button,
+.main-link-button:hover {
+    opacity: 0.8;
 }
