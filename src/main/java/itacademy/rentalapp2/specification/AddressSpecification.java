@@ -5,21 +5,27 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
 public class AddressSpecification {
-    public static Specification<AddressEntity> hasCity(String city) {
+    public static Specification<AddressEntity> cityContains(String city) {
         return (root, query, criteriaBuilder) -> {
             if (!StringUtils.hasText(city)) {
-                return criteriaBuilder.conjunction();
+                return criteriaBuilder.conjunction(); // Если город не указан, игнорируем фильтр
             }
-            return criteriaBuilder.equal(criteriaBuilder.lower(root.get("city")), city.toLowerCase());
+            return criteriaBuilder.like(
+                    criteriaBuilder.lower(root.get("city")),
+                    "%" + city.toLowerCase() + "%"
+            );
         };
     }
 
-    public static Specification<AddressEntity> hasStreet(String street) {
+    public static Specification<AddressEntity> streetContains(String street) {
         return (root, query, criteriaBuilder) -> {
             if (!StringUtils.hasText(street)) {
-                return criteriaBuilder.conjunction();
+                return criteriaBuilder.conjunction(); // Если улица не указана, игнорируем фильтр
             }
-            return criteriaBuilder.equal(criteriaBuilder.lower(root.get("street")), street.toLowerCase());
+            return criteriaBuilder.like(
+                    criteriaBuilder.lower(root.get("street")),
+                    "%" + street.toLowerCase() + "%"
+            );
         };
     }
 }

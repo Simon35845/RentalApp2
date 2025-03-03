@@ -101,8 +101,8 @@ public class AddressServiceImpl implements AddressService {
             Pageable pageable = PageRequest.of(pageNumber, filter.getPageSize());
 
             Specification<AddressEntity> spec = Specification
-                    .where(AddressSpecification.hasCity(filter.getCity()))
-                    .and(AddressSpecification.hasStreet(filter.getStreet()));
+                    .where(AddressSpecification.cityContains(filter.getCity()))
+                    .and(AddressSpecification.streetContains(filter.getStreet()));
 
             Page<AddressEntity> addressesPage = addressRepository.findAll(spec, pageable);
 
