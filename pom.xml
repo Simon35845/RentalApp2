@@ -123,7 +123,7 @@
                     <driver>com.mysql.cj.jdbc.Driver</driver>
                     <url>jdbc:mysql://localhost:3306/rental</url>
                     <username>root</username>
-                    <password>Jpds9345jds235MB</password>
+                    <password>72n75JKR928slj4</password>
                     <referenceUrl>com.mysql.cj.jdbc.Driver></referenceUrl>
                     <logging>debug</logging>
                     <defaultSchemaName/>

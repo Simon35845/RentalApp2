@@ -1,6 +1,7 @@
 package itacademy.rentalapp2.config;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,34 +13,31 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
+
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/addresses/main").permitAll()
-                        .requestMatchers("/addresses/save", "/addresses/edit/**", "/addresses/delete/**").hasRole("ADMIN")
-                        .requestMatchers("/addresses/**").hasAnyRole("USER", "ADMIN")
-                        .anyRequest().authenticated()
-                )
-                .formLogin(form -> form
-                        .loginPage("/login")
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .permitAll()
-                );
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-        return http.build();
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeHttpRequests((authorizeRequests) ->
+                        authorizeRequests.requestMatchers(antMatcher("/addresses/add")).hasAuthority("ADMIN")
+                                .requestMatchers(antMatcher("/addresses/delete/*")).hasAuthority("ADMIN")
+                                .requestMatchers(antMatcher("/addresses/edit/*")).hasAuthority("ADMIN")
+                                .requestMatchers(antMatcher("/addresses")).hasAnyAuthority("ADMIN", "USER")
+                                .anyRequest().authenticated())
+                .formLogin(formLogin -> formLogin.defaultSuccessUrl("/addresses", true)
+                        .permitAll()).logout(logout -> logout.logoutSuccessUrl("/login"));
+        return http.build();
     }
 
 }
