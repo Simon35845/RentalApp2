@@ -6,7 +6,10 @@
 
     <include file="V1.0.0/2025-02-24-create-table-address.xml"
              relativeToChangelogFile="true"/>
-
     <include file="V1.0.0/2025-03-04-insert-address-data.xml"
+             relativeToChangelogFile="true"/>
+    <include file="V1.0.0/2025-03-24-create-security-tables.xml"
+             relativeToChangelogFile="true"/>
+    <include file="V1.0.0/2025-03-04-insert-security-data.xml"
              relativeToChangelogFile="true"/>
 </databaseChangeLog>
