@@ -4,8 +4,6 @@ import itacademy.rentalapp2.dto.AddressDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,14 +34,12 @@ class AddressServiceImplTest {
     @Test
     void deleteAddress() {
         addressService.deleteAddress(1L);
-        //assertNull(addressService.getAddressById(1L));
         assertThrows(RuntimeException.class, () -> addressService.getAddressById(1L));
     }
 
     @Test
     void getAddressById() {
         assertNotNull(addressService.getAddressById(2L));
-        //assertNull(addressService.getAddressById(22L));
         assertThrows(RuntimeException.class, () -> addressService.getAddressById(22L));
     }
 }

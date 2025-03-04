@@ -8,7 +8,7 @@ public class AddressSpecification {
     public static Specification<AddressEntity> cityContains(String city) {
         return (root, query, criteriaBuilder) -> {
             if (!StringUtils.hasText(city)) {
-                return criteriaBuilder.conjunction(); // Если город не указан, игнорируем фильтр
+                return criteriaBuilder.conjunction();
             }
             return criteriaBuilder.like(
                     criteriaBuilder.lower(root.get("city")),
@@ -20,7 +20,7 @@ public class AddressSpecification {
     public static Specification<AddressEntity> streetContains(String street) {
         return (root, query, criteriaBuilder) -> {
             if (!StringUtils.hasText(street)) {
-                return criteriaBuilder.conjunction(); // Если улица не указана, игнорируем фильтр
+                return criteriaBuilder.conjunction();
             }
             return criteriaBuilder.like(
                     criteriaBuilder.lower(root.get("street")),

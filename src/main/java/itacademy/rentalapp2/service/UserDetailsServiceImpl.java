@@ -1,6 +1,5 @@
 package itacademy.rentalapp2.service;
 
-import itacademy.rentalapp2.entity.RoleEntity;
 import itacademy.rentalapp2.entity.UserEntity;
 import itacademy.rentalapp2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (userEntity == null) {
             throw new UsernameNotFoundException("Could not find user " + username);
         }
-
         return new UserDetailsImpl(userEntity);
     }
 }
