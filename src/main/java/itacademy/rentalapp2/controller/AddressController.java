@@ -19,7 +19,7 @@ public class AddressController {
     private final AddressService addressService;
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     public String getAllAddresses(@ModelAttribute("addressFilter") AddressFilterDto addressFilter,
                                   Model model) {
             Page<AddressDto> addressesPage = addressService.getAddressesByFilter(addressFilter);
@@ -29,14 +29,14 @@ public class AddressController {
     }
 
     @GetMapping("/save")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public String showSaveForm(Model model) {
         model.addAttribute("address", new AddressDto());
         return "addresses/save";
     }
 
     @PostMapping("/save")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public String saveAddress(@Valid @ModelAttribute AddressDto addressDto,
                               BindingResult result) {
         if (result.hasErrors()) {
@@ -47,7 +47,7 @@ public class AddressController {
     }
 
     @GetMapping("/edit/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public String showEditForm(@PathVariable Long id, Model model) {
         AddressDto addressDto = addressService.getAddressById(id);
         model.addAttribute("address", addressDto);
@@ -55,7 +55,7 @@ public class AddressController {
     }
 
     @PostMapping("/edit/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public String updateAddress(@PathVariable Long id,
                                 @Valid @ModelAttribute AddressDto addressDto,
                                 BindingResult result) {
@@ -67,7 +67,7 @@ public class AddressController {
     }
 
     @GetMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     public String deleteAddress(@PathVariable Long id) {
         addressService.deleteAddress(id);
         return "redirect:/addresses";

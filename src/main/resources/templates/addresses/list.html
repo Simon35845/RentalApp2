@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <meta charset="UTF-8">
     <title>Address List</title>
@@ -10,12 +10,9 @@
 <body>
 <h1>Список адресов</h1>
 
-<div sec:authorize="isAuthenticated()">
-    <p>Вы вошли как: <span sec:authentication="name"></span></p>
-    <form th:action="@{/logout}" method="post">
-        <button type="submit" class="logout-button">Выйти</button>
-    </form>
-</div>
+<form method="post" th:action="@{/logout}">
+    <button class="main-link-button" type="submit">LOGOUT</button>
+</form>
 
 <div class="filter-container">
     <form th:action="@{addresses}" method="get">
@@ -34,7 +31,7 @@
         <th>Город</th>
         <th>Улица</th>
         <th>Номер дома</th>
-        <th sec:authorize="hasRole('ADMIN')">Действия</th>
+        <th sec:authorize="hasAuthority('ADMIN')">Действия</th>
     </tr>
     </thead>
     <tbody>
@@ -43,7 +40,7 @@
         <td th:text="${address.city}"></td>
         <td th:text="${address.street}"></td>
         <td th:text="${address.houseNumber}"></td>
-        <td sec:authorize="hasRole('ADMIN')">
+        <td sec:authorize="hasAuthority('ADMIN')">
             <div class="button-container-2">
             <a class="update-button" th:href="@{/addresses/edit/{id}(id=${address.id})}">Изменить</a>
             <a class="delete-button" th:href="@{/addresses/delete/{id}(id=${address.id})}">Удалить</a>
@@ -83,7 +80,7 @@
     <span>Страница [[${addresses.number + 1}]] из [[${addresses.totalPages}]]</span>
 </div>
 
-<div class="button-container-1" sec:authorize="hasRole('ADMIN')">
+<div class="button-container-1" sec:authorize="hasAuthority('ADMIN')">
     <a class="save-link-button" th:href="@{addresses/save}">Добавить новый адрес</a>
 </div>
 
