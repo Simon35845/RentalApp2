@@ -25,13 +25,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
-                .authorizeHttpRequests((authorizeRequests) ->
-                        authorizeRequests.requestMatchers(antMatcher("/addresses/add")).hasAuthority("ADMIN")
+                .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
+                                .requestMatchers(antMatcher("/main")).hasAnyAuthority("ADMIN", "USER")
+                                .requestMatchers(antMatcher("/addresses/add")).hasAuthority("ADMIN")
                                 .requestMatchers(antMatcher("/addresses/delete/*")).hasAuthority("ADMIN")
                                 .requestMatchers(antMatcher("/addresses/edit/*")).hasAuthority("ADMIN")
                                 .requestMatchers(antMatcher("/addresses")).hasAnyAuthority("ADMIN", "USER")
                                 .anyRequest().authenticated())
-                .formLogin(formLogin -> formLogin.defaultSuccessUrl("/addresses", true)
+                .formLogin(formLogin -> formLogin.defaultSuccessUrl("/main", true)
                         .permitAll()).logout(logout -> logout.logoutSuccessUrl("/login"));
         return http.build();
     }
