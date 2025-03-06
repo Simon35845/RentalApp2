@@ -7,6 +7,9 @@
 </head>
 <body>
 <h1>Изменение адреса</h1>
+<form method="post" th:action="@{/logout}">
+    <button class="main-link-button" type="submit">LOGOUT</button>
+</form>
 
 <form th:action="@{/addresses/edit/{id}(id=${address.id})}" th:object="${address}" method="post">
     <div>

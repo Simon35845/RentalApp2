@@ -64,11 +64,11 @@
     <changeSet id="insert-users" author="Simon">
         <insert tableName="users">
             <column name="username">admin</column>
-            <column name="password">$2y$12$kjBEvSNH8oN9508Vi8gpLOxzxsfc7H/HLRTQatlR4z3JOzrC4YXB6</column>
+            <column name="password">$2a$10$uvKRABwdk7SZD433CEh7OOyuIrQBUJoLOWKhC/TobMhZJz42R5nFq</column>
         </insert>
         <insert tableName="users">
             <column name="username">user</column>
-            <column name="password">$2y$12$kjBEvSNH8oN9508Vi8gpLOxzxsfc7H/HLRTQatlR4z3JOzrC4YXB6</column>
+            <column name="password">$2a$10$H1sYJqpO9IbLTt1OmUMt/.I4i.zFoPabV37ZqD1O4zfP78onRnX42</column>
         </insert>
     </changeSet>
 

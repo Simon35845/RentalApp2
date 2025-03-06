@@ -8,6 +8,10 @@
 <h1>Добро пожаловать в RentalApp!</h1>
 <br/>
 <body>
+<form method="post" th:action="@{/logout}">
+    <button class="main-link-button" type="submit">LOGOUT</button>
+</form>
+
 <div class="button-container-1">
     <a class="list-link-button" th:href="@{/addresses}">Список адресов</a>
 </div>
