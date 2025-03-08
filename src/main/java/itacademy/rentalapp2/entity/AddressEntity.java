@@ -1,17 +1,19 @@
 package itacademy.rentalapp2.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(exclude = "apartments")
+@EqualsAndHashCode(exclude = "apartments")
 @Entity
-@Table(name = "address", uniqueConstraints = {
+@Table(name = "addresses", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"city", "street", "house_number"})
 })
 public class AddressEntity {
@@ -27,4 +29,8 @@ public class AddressEntity {
 
     @Column(name = "house_number", nullable = false)
     private Integer houseNumber;
+
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},
+            fetch = FetchType.EAGER, mappedBy = "addresses")
+    private Set<ApartmentEntity> apartments = new HashSet<>();
 }
