@@ -26,12 +26,16 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
-                                .requestMatchers(antMatcher("/main")).hasAnyAuthority("ADMIN", "USER")
-                                .requestMatchers(antMatcher("/addresses/add")).hasAuthority("ADMIN")
-                                .requestMatchers(antMatcher("/addresses/delete/*")).hasAuthority("ADMIN")
-                                .requestMatchers(antMatcher("/addresses/edit/*")).hasAuthority("ADMIN")
-                                .requestMatchers(antMatcher("/addresses")).hasAnyAuthority("ADMIN", "USER")
-                                .anyRequest().authenticated())
+                        .requestMatchers(antMatcher("/main")).hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers(antMatcher("/addresses/add")).hasAuthority("ADMIN")
+                        .requestMatchers(antMatcher("/addresses/delete/*")).hasAuthority("ADMIN")
+                        .requestMatchers(antMatcher("/addresses/edit/*")).hasAuthority("ADMIN")
+                        .requestMatchers(antMatcher("/addresses")).hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers(antMatcher("/apartments/add")).hasAuthority("ADMIN")
+                        .requestMatchers(antMatcher("/apartments/delete/*")).hasAuthority("ADMIN")
+                        .requestMatchers(antMatcher("/apartments/edit/*")).hasAuthority("ADMIN")
+                        .requestMatchers(antMatcher("/apartments")).hasAnyAuthority("ADMIN", "USER")
+                        .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin.defaultSuccessUrl("/main", true)
                         .permitAll()).logout(logout -> logout.logoutSuccessUrl("/login"));
         return http.build();
