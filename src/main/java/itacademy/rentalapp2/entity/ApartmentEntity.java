@@ -8,7 +8,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "apartments")
+@Table(name = "apartments", uniqueConstraints = {
+@UniqueConstraint(columnNames = {"apartment_number", "address_id"})
+})
+
 public class ApartmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

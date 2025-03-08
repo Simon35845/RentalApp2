@@ -76,10 +76,7 @@ public class AddressServiceImpl implements AddressService {
         LOGGER.debug("Fetching address by id: {}", id);
         try {
             AddressEntity addressEntity = addressRepository.findById(id)
-                    .orElseThrow(() -> {
-                        LOGGER.error("Address not found with id: {}", id);
-                        return new RuntimeException("Address not found");
-                    });
+                    .orElseThrow(() -> new RuntimeException("Address not found"));
             LOGGER.debug("Address fetched successfully: {}", addressEntity);
             return conversionService.convert(addressEntity, AddressDto.class);
         } catch (Exception e) {
