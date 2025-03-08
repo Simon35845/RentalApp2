@@ -4,25 +4,25 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
 
-    <changeSet id="create-addresses-table" author="Simon">
-        <createTable tableName="addresses">
+    <changeSet id="create-apartments-table" author="Simon">
+        <createTable tableName="apartments">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="city" type="varchar(255)">
+            <column name="apartment_number" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="street" type="varchar(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="house_number" type="int">
-                <constraints nullable="false"/>
+            <column name="floor" type="int"/>
+            <column name="count_of_rooms" type="int"/>
+            <column name="total_square" type="double"/>
+            <column name="address_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_apartment_address" references="addresses(id)"/>
             </column>
         </createTable>
 
         <addUniqueConstraint
-                tableName="addresses"
-                columnNames="city, street, house_number"
-                constraintName="unique_city_street_house_number"/>
+                tableName="apartments"
+                columnNames="apartment_number, address_id"
+                constraintName="unique_apartment_number_address"/>
     </changeSet>
 </databaseChangeLog>

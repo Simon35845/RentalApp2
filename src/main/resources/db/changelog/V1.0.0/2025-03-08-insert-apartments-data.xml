@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
+
+    <changeSet id="insert-apartments" author="Simon">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM addresses</sqlCheck>
+        </preConditions>
+
+        <insert tableName="apartments">
+            <column name="apartment_number" value="31"/>
+            <column name="floor" value="5"/>
+            <column name="count_of_rooms" value="2"/>
+            <column name="total_square" value="44.5"/>
+            <column name="address_id" value="1"/>
+        </insert>
+        <insert tableName="apartments">
+            <column name="apartment_number" value="32"/>
+            <column name="floor" value="5"/>
+            <column name="count_of_rooms" value="1"/>
+            <column name="total_square" value="33.7"/>
+            <column name="address_id" value="1"/>
+        </insert>
+        <insert tableName="apartments">
+            <column name="apartment_number" value="201"/>
+            <column name="floor" value="8"/>
+            <column name="count_of_rooms" value="2"/>
+            <column name="total_square" value="53.0"/>
+            <column name="address_id" value="12"/>
+        </insert>
+        <insert tableName="apartments">
+            <column name="apartment_number" value="307"/>
+            <column name="floor" value="11"/>
+            <column name="count_of_rooms" value="3"/>
+            <column name="total_square" value="65.0"/>
+            <column name="address_id" value="12"/>
+        </insert>
+        <insert tableName="apartments">
+            <column name="apartment_number" value="71"/>
+            <column name="floor" value="15"/>
+            <column name="count_of_rooms" value="4"/>
+            <column name="total_square" value="120.0"/>
+            <column name="address_id" value="3"/>
+        </insert>
+        <insert tableName="apartments">
+            <column name="apartment_number" value="72"/>
+            <column name="floor" value="15"/>
+            <column name="count_of_rooms" value="3"/>
+            <column name="total_square" value="95.0"/>
+            <column name="address_id" value="3"/>
+        </insert>
+        <insert tableName="apartments">
+            <column name="apartment_number" value="145"/>
+            <column name="floor" value="17"/>
+            <column name="count_of_rooms" value="3"/>
+            <column name="total_square" value="70.0"/>
+            <column name="address_id" value="4"/>
+        </insert>
+        <insert tableName="apartments">
+            <column name="apartment_number" value="148"/>
+            <column name="floor" value="20"/>
+            <column name="count_of_rooms" value="1"/>
+            <column name="total_square" value="45.0"/>
+            <column name="address_id" value="4"/>
+        </insert>
+        <insert tableName="apartments">
+            <column name="apartment_number" value="67"/>
+            <column name="floor" value="25"/>
+            <column name="count_of_rooms" value="3"/>
+            <column name="total_square" value="85.0"/>
+            <column name="address_id" value="8"/>
+        </insert>
+        <insert tableName="apartments">
+            <column name="apartment_number" value="74"/>
+            <column name="floor" value="25"/>
+            <column name="count_of_rooms" value="2"/>
+            <column name="total_square" value="60.0"/>
+            <column name="address_id" value="7"/>
+        </insert>
+        <insert tableName="apartments">
+            <column name="apartment_number" value="55"/>
+            <column name="floor" value="17"/>
+            <column name="count_of_rooms" value="3"/>
+            <column name="total_square" value="60.7"/>
+            <column name="address_id" value="1"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

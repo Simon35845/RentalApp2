@@ -4,10 +4,14 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.2.xsd">
 
+    <include file="V1.0.0/2025-03-04-create-security-tables.xml"
+             relativeToChangelogFile="true"/>
     <include file="V1.0.0/2025-02-24-create-table-addresses.xml"
              relativeToChangelogFile="true"/>
     <include file="V1.0.0/2025-03-04-insert-addresses-data.xml"
              relativeToChangelogFile="true"/>
-    <include file="V1.0.0/2025-03-04-create-security-tables.xml"
+    <include file="V1.0.0/2025-03-08-create-table-apartments.xml"
              relativeToChangelogFile="true"/>
+<!--    <include file="V1.0.0/2025-03-08-insert-apartments-data.xml"-->
+<!--             relativeToChangelogFile="true"/>-->
 </databaseChangeLog>
