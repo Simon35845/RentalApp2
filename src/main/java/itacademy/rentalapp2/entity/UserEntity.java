@@ -30,5 +30,6 @@ public class UserEntity {
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @Builder.Default
     private Set<RoleEntity> roles = new HashSet<>();
 }

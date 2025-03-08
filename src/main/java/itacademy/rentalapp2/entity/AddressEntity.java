@@ -31,6 +31,7 @@ public class AddressEntity {
     private Integer houseNumber;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},
-            fetch = FetchType.EAGER, mappedBy = "addresses")
+            fetch = FetchType.EAGER, mappedBy = "address")
+    @Builder.Default
     private Set<ApartmentEntity> apartments = new HashSet<>();
 }

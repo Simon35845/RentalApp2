@@ -29,5 +29,4 @@ public class ApartmentEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "address_id", nullable = false)
     private AddressEntity address;
-
 }

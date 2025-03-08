@@ -1,6 +1,7 @@
 package itacademy.rentalapp2.specification;
 
 import itacademy.rentalapp2.entity.AddressEntity;
+import itacademy.rentalapp2.entity.AddressEntity_;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
@@ -11,7 +12,7 @@ public class AddressSpecification {
                 return criteriaBuilder.conjunction();
             }
             return criteriaBuilder.like(
-                    criteriaBuilder.lower(root.get("city")),
+                    criteriaBuilder.lower(root.get(AddressEntity_.city)),
                     "%" + city.toLowerCase() + "%"
             );
         };
@@ -23,7 +24,7 @@ public class AddressSpecification {
                 return criteriaBuilder.conjunction();
             }
             return criteriaBuilder.like(
-                    criteriaBuilder.lower(root.get("street")),
+                    criteriaBuilder.lower(root.get(AddressEntity_.street)),
                     "%" + street.toLowerCase() + "%"
             );
         };
