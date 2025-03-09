@@ -58,7 +58,7 @@ public class ApartmentServiceImpl implements ApartmentService {
             apartmentEntity.setCountOfRooms(apartmentDto.getCountOfRooms());
             apartmentEntity.setTotalSquare(apartmentDto.getTotalSquare());
 
-            AddressEntity addressEntity = addressRepository.findById(apartmentDto.getAddressId())
+            AddressEntity addressEntity = addressRepository.findById(apartmentEntity.getId())
                     .orElseThrow(() -> new RuntimeException("Address not found"));
             apartmentEntity.setAddress(addressEntity);
             ApartmentEntity updatedEntity = apartmentRepository.save(apartmentEntity);
@@ -124,16 +124,16 @@ public class ApartmentServiceImpl implements ApartmentService {
                 apartmentsPage = apartmentRepository.findAll(pageable);
             }
             LOGGER.debug("Apartments fetched successfully: {}", apartmentsPage.getContent());
-//            return apartmentsPage.map(apartmentEntity ->
-//                    conversionService.convert(apartmentEntity, ApartmentDto.class));
-            return apartmentsPage.map(apartmentEntity -> {
-                ApartmentDto apartmentDto = conversionService.convert(apartmentEntity, ApartmentDto.class);
-                if (apartmentEntity.getAddress() != null) {
-                    AddressDto addressDto = conversionService.convert(apartmentEntity.getAddress(), AddressDto.class);
-                    apartmentDto.setAddress(addressDto);
-                }
-                return apartmentDto;
-            });
+            return apartmentsPage.map(apartmentEntity ->
+                    conversionService.convert(apartmentEntity, ApartmentDto.class));
+//            return apartmentsPage.map(apartmentEntity -> {
+//                ApartmentDto apartmentDto = conversionService.convert(apartmentEntity, ApartmentDto.class);
+//                if (apartmentEntity.getAddress() != null) {
+//                    AddressDto addressDto = conversionService.convert(apartmentEntity.getAddress(), AddressDto.class);
+//                    apartmentDto.setAddress(addressDto);
+//                }
+//                return apartmentDto;
+//            });
         } catch (Exception e) {
             LOGGER.error("Error fetching apartments by filter: {}", filter, e);
             throw e;
