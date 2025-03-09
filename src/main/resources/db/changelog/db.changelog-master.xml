@@ -12,6 +12,6 @@
              relativeToChangelogFile="true"/>
     <include file="V1.0.0/2025-03-08-create-table-apartments.xml"
              relativeToChangelogFile="true"/>
-<!--    <include file="V1.0.0/2025-03-08-insert-apartments-data.xml"-->
-<!--             relativeToChangelogFile="true"/>-->
+    <include file="V1.0.0/2025-03-08-insert-apartments-data.xml"
+             relativeToChangelogFile="true"/>
 </databaseChangeLog>

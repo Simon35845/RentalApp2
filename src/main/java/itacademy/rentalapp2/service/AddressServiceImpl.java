@@ -4,6 +4,7 @@ import itacademy.rentalapp2.dto.AddressDto;
 import itacademy.rentalapp2.dto.AddressFilterDto;
 import itacademy.rentalapp2.entity.AddressEntity;
 import itacademy.rentalapp2.repository.AddressRepository;
+import itacademy.rentalapp2.repository.ApartmentRepository;
 import itacademy.rentalapp2.specification.AddressSpecification;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AddressServiceImpl implements AddressService {
     private static final Logger LOGGER = LoggerFactory.getLogger(AddressServiceImpl.class);
     private final AddressRepository addressRepository;
+    private final ApartmentRepository apartmentRepository;
     private final ConversionService conversionService;
 
     @Override
@@ -63,6 +65,13 @@ public class AddressServiceImpl implements AddressService {
     public void deleteAddress(Long id) {
         LOGGER.debug("Deleting address with id: {}", id);
         try {
+            // Проверяем, есть ли связанные квартиры
+            if (apartmentRepository.existsByAddressId(id)) {
+                LOGGER.error("Cannot delete address with id {}: Apartments are linked to this address", id);
+                throw new RuntimeException("К этому адресу уже привязаны квартиры. Если хотите удалить этот адрес, то сначала удалите все связанные с этим адресом квартиры.");
+            }
+
+            // Если связанных квартир нет, удаляем адрес
             addressRepository.deleteById(id);
             LOGGER.debug("Address deleted successfully with id: {}", id);
         } catch (Exception e) {

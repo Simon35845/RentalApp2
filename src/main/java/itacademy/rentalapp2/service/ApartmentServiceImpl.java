@@ -150,4 +150,3 @@ public class ApartmentServiceImpl implements ApartmentService {
         return addressService.getAddressById(id);
     }
 }
-

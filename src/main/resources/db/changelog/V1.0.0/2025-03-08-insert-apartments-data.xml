@@ -6,7 +6,7 @@
 
     <changeSet id="insert-apartments" author="Simon">
         <preConditions onFail="MARK_RAN">
-            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM addresses</sqlCheck>
+            <sqlCheck expectedResult="0">SELECT COUNT(*) FROM apartments</sqlCheck>
         </preConditions>
 
         <insert tableName="apartments">

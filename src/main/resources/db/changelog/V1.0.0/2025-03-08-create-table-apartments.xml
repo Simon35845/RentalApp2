@@ -12,8 +12,12 @@
             <column name="apartment_number" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="floor" type="int"/>
-            <column name="count_of_rooms" type="int"/>
+            <column name="floor" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="count_of_rooms" type="int">
+                <constraints nullable="false"/>
+            </column>
             <column name="total_square" type="double"/>
             <column name="address_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_apartment_address" references="addresses(id)"/>
