@@ -15,5 +15,7 @@ public class ApartmentFilterDto extends PageFilterDto {
     private Integer floor;
     private Integer countOfRooms;
     private Double totalSquare;
-    private Long addressId;
+    private String city;
+    private String street;
+    private Integer houseNumber;
 }

@@ -26,17 +26,17 @@ public class ApartmentController {
         return "apartments/list";
     }
 
-    @GetMapping("/save")
-    public String showSaveForm(Model model) {
+    @GetMapping("/save1")
+    public String showSaveFormStep1(Model model) {
         model.addAttribute("apartment", new ApartmentDto());
-        return "apartments/save";
+        return "apartments/save1";
     }
 
-    @PostMapping("/save")
-    public String saveApartment(@Valid @ModelAttribute ApartmentDto apartmentDto,
+    @PostMapping("/save1")
+    public String saveApartmentStep2(@Valid @ModelAttribute ApartmentDto apartmentDto,
                               BindingResult result) {
         if (result.hasErrors()) {
-            return "apartments/save";
+            return "apartments/save1";
         }
         apartmentService.saveApartment(apartmentDto);
         return "redirect:/apartments";

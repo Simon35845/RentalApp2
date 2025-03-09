@@ -20,7 +20,6 @@ public class ApartmentDto {
     private Integer floor;
     private Integer countOfRooms;
     private Double totalSquare;
-
-    @NotNull(message = "field \"Address\" can't be empty")
     private Long addressId;
+    private AddressDto address;
 }

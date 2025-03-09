@@ -107,7 +107,10 @@ public class ApartmentServiceImpl implements ApartmentService {
             Specification<ApartmentEntity> spec = Specification
                     .where(ApartmentSpecification.floorContains(filter.getFloor()))
                     .and(ApartmentSpecification.countOfRoomsContains(filter.getCountOfRooms()))
-                    .and(ApartmentSpecification.totalSquareContains(filter.getTotalSquare()));
+                    .and(ApartmentSpecification.totalSquareContains(filter.getTotalSquare()))
+                    .and(ApartmentSpecification.cityContains(filter.getCity()))
+                    .and(ApartmentSpecification.streetContains(filter.getStreet()))
+                    .and(ApartmentSpecification.houseNumberContains(filter.getHouseNumber()));
 
             Page<ApartmentEntity> apartmentsPage = apartmentRepository.findAll(spec, pageable);
 
