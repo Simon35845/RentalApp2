@@ -9,6 +9,15 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
 public class ApartmentSpecification {
+    public static Specification<ApartmentEntity> apartmentNumberContains(Integer apartmentNumber) {
+        return (root, query, criteriaBuilder) -> {
+            if (apartmentNumber == null) {
+                return criteriaBuilder.conjunction();
+            }
+            return criteriaBuilder.equal(root.get(ApartmentEntity_.apartmentNumber), apartmentNumber);
+        };
+    }
+
     public static Specification<ApartmentEntity> floorContains(Integer floor) {
         return (root, query, criteriaBuilder) -> {
             if (floor == null) {

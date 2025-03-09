@@ -1,5 +1,6 @@
 package itacademy.rentalapp2.dto;
 
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,6 +13,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ApartmentFilterDto extends PageFilterDto {
+    private Integer apartmentNumber;
     private Integer floor;
     private Integer countOfRooms;
     private Double totalSquare;
