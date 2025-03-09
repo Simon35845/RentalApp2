@@ -19,7 +19,9 @@
         <th>Этаж</th>
         <th>Количество комнат</th>
         <th>Общая площадь</th>
-        <th>Адрес</th>
+        <th>Город</th>
+        <th>Улица</th>
+        <th>Номер дома</th>
         <th sec:authorize="hasAuthority('ADMIN')">Действия</th>
     </tr>
     </thead>
@@ -32,7 +34,23 @@
         <td th:text="${apartment.totalSquare}"></td>
         <td>
             <span th:if="${apartment.address != null}">
-                [[${apartment.address.city}]], [[${apartment.address.street}]], [[${apartment.address.houseNumber}]]
+                [[${apartment.address.city}]]
+            </span>
+            <span th:unless="${apartment.address != null}">
+                Нет данных
+            </span>
+        </td>
+        <td>
+            <span th:if="${apartment.address != null}">
+                [[${apartment.address.street}]]
+            </span>
+            <span th:unless="${apartment.address != null}">
+                Нет данных
+            </span>
+        </td>
+        <td>
+            <span th:if="${apartment.address != null}">
+                [[${apartment.address.houseNumber}]]
             </span>
             <span th:unless="${apartment.address != null}">
                 Нет данных
