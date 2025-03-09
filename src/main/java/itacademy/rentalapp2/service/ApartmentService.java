@@ -1,5 +1,7 @@
 package itacademy.rentalapp2.service;
 
+import itacademy.rentalapp2.dto.AddressDto;
+import itacademy.rentalapp2.dto.AddressFilterDto;
 import itacademy.rentalapp2.dto.ApartmentDto;
 import itacademy.rentalapp2.dto.ApartmentFilterDto;
 import org.springframework.data.domain.Page;
@@ -10,4 +12,6 @@ public interface ApartmentService {
     void deleteApartment(Long id);
     ApartmentDto getApartmentById(Long id);
     Page<ApartmentDto> getApartmentsByFilter(ApartmentFilterDto filter);
+    Page<AddressDto> getAddressesByFilter(AddressFilterDto filter);
+    AddressDto getAddressById(Long id);
 }

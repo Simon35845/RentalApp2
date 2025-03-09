@@ -1,5 +1,7 @@
 package itacademy.rentalapp2.dto;
 
+
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -21,5 +23,6 @@ public class ApartmentDto {
     private Integer countOfRooms;
     private Double totalSquare;
     private Long addressId;
-    private AddressDto address;
+    @Nullable
+    private AddressDto address = new AddressDto();
 }

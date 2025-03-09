@@ -1,5 +1,7 @@
 package itacademy.rentalapp2.service;
 
+import itacademy.rentalapp2.dto.AddressDto;
+import itacademy.rentalapp2.dto.AddressFilterDto;
 import itacademy.rentalapp2.dto.ApartmentDto;
 import itacademy.rentalapp2.dto.ApartmentFilterDto;
 import itacademy.rentalapp2.entity.AddressEntity;
@@ -26,6 +28,7 @@ public class ApartmentServiceImpl implements ApartmentService {
     private final ApartmentRepository apartmentRepository;
     private final AddressRepository addressRepository;
     private final ConversionService conversionService;
+    private final AddressService addressService;
 
     @Override
     public ApartmentDto saveApartment(ApartmentDto apartmentDto) {
@@ -120,12 +123,30 @@ public class ApartmentServiceImpl implements ApartmentService {
                 apartmentsPage = apartmentRepository.findAll(pageable);
             }
             LOGGER.debug("Apartments fetched successfully: {}", apartmentsPage.getContent());
-            return apartmentsPage.map(apartmentEntity ->
-                    conversionService.convert(apartmentEntity, ApartmentDto.class));
+//            return apartmentsPage.map(apartmentEntity ->
+//                    conversionService.convert(apartmentEntity, ApartmentDto.class));
+            return apartmentsPage.map(apartmentEntity -> {
+                ApartmentDto apartmentDto = conversionService.convert(apartmentEntity, ApartmentDto.class);
+                if (apartmentEntity.getAddress() != null) {
+                    AddressDto addressDto = conversionService.convert(apartmentEntity.getAddress(), AddressDto.class);
+                    apartmentDto.setAddress(addressDto);
+                }
+                return apartmentDto;
+            });
         } catch (Exception e) {
             LOGGER.error("Error fetching apartments by filter: {}", filter, e);
             throw e;
         }
+    }
+
+    @Override
+    public Page<AddressDto> getAddressesByFilter(AddressFilterDto filter) {
+        return addressService.getAddressesByFilter(filter);
+    }
+
+    @Override
+    public AddressDto getAddressById(Long id) {
+        return addressService.getAddressById(id);
     }
 }
 

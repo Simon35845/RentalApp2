@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование квартиры</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Редактирование квартиры</h1>
+<form method="post" th:action="@{/logout}">
+    <button class="main-link-button" type="submit">LOGOUT</button>
+</form>
+
+<form th:action="@{/apartments/edit/{id}(id=${apartment.id})}" th:object="${apartment}" method="post">
+    <div>
+        <label for="apartmentNumber">Номер квартиры:</label>
+        <input type="number" id="apartmentNumber" th:field="*{apartmentNumber}" required>
+    </div>
+    <div>
+        <label for="floor">Этаж:</label>
+        <input type="number" id="floor" th:field="*{floor}" required>
+    </div>
+    <div>
+        <label for="countOfRooms">Количество комнат:</label>
+        <input type="number" id="countOfRooms" th:field="*{countOfRooms}" required>
+    </div>
+    <div>
+        <label for="totalSquare">Общая площадь:</label>
+        <input type="number" step="0.01" id="totalSquare" th:field="*{totalSquare}" required>
+    </div>
+    <div>
+        <label>Адрес:</label>
+        <span th:text="${apartment.address.city + ', ' + apartment.address.street + ', ' + apartment.address.houseNumber}"></span>
+        <a class="update-button" th:href="@{/apartments/save2}">Изменить адрес</a>
+    </div>
+    <div class="button-container-1">
+        <button class="save-button" type="submit">Сохранить</button>
+    </div>
+</form>
+
+<div class="button-container-1">
+    <a class="list-link-button" th:href="@{/apartments}">Вернуться к списку квартир</a>
+    <a class="main-link-button" th:href="@{/main}">Перейти на главную страницу</a>
+</div>
+</body>
+</html>

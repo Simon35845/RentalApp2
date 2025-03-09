@@ -14,4 +14,5 @@ import lombok.experimental.SuperBuilder;
 public class AddressFilterDto extends PageFilterDto {
     private String city;
     private String street;
+    private Integer houseNumber;
 }
