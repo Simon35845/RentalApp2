@@ -4,14 +4,11 @@ import itacademy.rentalapp2.dto.AddressDto;
 import itacademy.rentalapp2.dto.AddressFilterDto;
 import itacademy.rentalapp2.dto.ApartmentDto;
 import itacademy.rentalapp2.dto.ApartmentFilterDto;
-import itacademy.rentalapp2.service.AddressService;
 import itacademy.rentalapp2.service.ApartmentService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 

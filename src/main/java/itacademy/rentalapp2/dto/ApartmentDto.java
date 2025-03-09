@@ -3,7 +3,6 @@ package itacademy.rentalapp2.dto;
 
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,11 +15,15 @@ import lombok.NoArgsConstructor;
 public class ApartmentDto {
     private Long id;
 
-    @NotBlank(message = "field \"Apartment Number\" can't be empty")
+    @NotBlank(message = "поле \"Номер квартиры\" не может быть пустым")
     private Integer apartmentNumber;
 
+    @NotBlank(message = "поле \"Этаж\" не может быть пустым")
     private Integer floor;
+
+    @NotBlank(message = "поле \"Количество комнат\" не может быть пустым")
     private Integer countOfRooms;
+
     private Double totalSquare;
     private Long addressId;
     @Nullable

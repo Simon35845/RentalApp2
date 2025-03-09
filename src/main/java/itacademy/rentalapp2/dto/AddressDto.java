@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 public class AddressDto {
     private Long id;
 
-    @NotBlank(message = "field \"City\" can't be empty")
+    @NotBlank(message = "поле \"Город\" не может быть пустым")
     private String city;
 
-    @NotBlank(message = "field \"Street\" can't be empty")
+    @NotBlank(message = "поле \"Улица\" не может быть пустым")
     private String street;
 
-    @NotNull(message = "field \"House Number\" can't be empty")
+    @NotNull(message = "поле \"Номер дома\" не может быть пустым")
     private Integer houseNumber;
 }

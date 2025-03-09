@@ -20,10 +20,10 @@ public class ApartmentEntity {
     @Column(name = "apartment_number", nullable = false)
     private Integer apartmentNumber;
 
-    @Column
+    @Column(nullable = false)
     private Integer floor;
 
-    @Column(name = "count_of_rooms")
+    @Column(name = "count_of_rooms", nullable = false)
     private Integer countOfRooms;
 
     @Column(name = "total_square")
