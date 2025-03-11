@@ -29,7 +29,7 @@ public class ApartmentEntity {
     @Column(name = "total_square")
     private Double totalSquare;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", nullable = false)
     private AddressEntity address;
 }
