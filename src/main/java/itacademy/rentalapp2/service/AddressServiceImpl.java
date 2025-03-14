@@ -17,6 +17,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -115,7 +116,8 @@ public class AddressServiceImpl implements AddressService {
                 pageNumber = 0;
             }
 
-            Pageable pageable = PageRequest.of(pageNumber, filter.getPageSize());
+            Pageable pageable = PageRequest.of(pageNumber, filter.getPageSize(),
+                    Sort.by(Sort.Direction.ASC, "id"));
 
             Specification<AddressEntity> spec = Specification
                     .where(AddressSpecification.cityContains(filter.getCity()))
@@ -125,7 +127,8 @@ public class AddressServiceImpl implements AddressService {
 
             if (pageNumber > addressesPage.getTotalPages()) {
                 pageNumber = addressesPage.getTotalPages() - 1;
-                pageable = PageRequest.of(pageNumber, filter.getPageSize());
+                pageable = PageRequest.of(pageNumber, filter.getPageSize(),
+                        Sort.by(Sort.Direction.ASC, "id"));
                 addressesPage = addressRepository.findAll(pageable);
             }
             LOGGER.debug("Addresses fetched successfully: {}", addressesPage.getContent());
