@@ -126,14 +126,6 @@ public class ApartmentServiceImpl implements ApartmentService {
             LOGGER.debug("Apartments fetched successfully: {}", apartmentsPage.getContent());
             return apartmentsPage.map(apartmentEntity ->
                     conversionService.convert(apartmentEntity, ApartmentDto.class));
-//            return apartmentsPage.map(apartmentEntity -> {
-//                ApartmentDto apartmentDto = conversionService.convert(apartmentEntity, ApartmentDto.class);
-//                if (apartmentEntity.getAddress() != null) {
-//                    AddressDto addressDto = conversionService.convert(apartmentEntity.getAddress(), AddressDto.class);
-//                    apartmentDto.setAddress(addressDto);
-//                }
-//                return apartmentDto;
-//            });
         } catch (Exception e) {
             LOGGER.error("Error fetching apartments by filter: {}", filter, e);
             throw e;
