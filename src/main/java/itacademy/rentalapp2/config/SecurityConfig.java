@@ -27,6 +27,7 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests((authorizeRequests) -> authorizeRequests
                         .requestMatchers(antMatcher("/main")).hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers(antMatcher("/error")).hasAnyAuthority("ADMIN", "USER")
                         .requestMatchers(antMatcher("/addresses/save")).hasAuthority("ADMIN")
                         .requestMatchers(antMatcher("/addresses/delete/*")).hasAuthority("ADMIN")
                         .requestMatchers(antMatcher("/addresses/edit/*")).hasAuthority("ADMIN")

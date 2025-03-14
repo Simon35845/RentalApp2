@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ошибка</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Произошла ошибка</h1>
+<p th:text="${errorMessage}"></p>
+<div class="button-container-1">
+    <a class="main-link-button" th:href="@{/main}">Перейти на главную страницу</a>
+</div>
+</body>
+</html>

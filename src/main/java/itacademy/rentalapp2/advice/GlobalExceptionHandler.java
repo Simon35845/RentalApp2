@@ -1,19 +1,25 @@
 package itacademy.rentalapp2.advice;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import itacademy.rentalapp2.exceptions.CustomException;
+import itacademy.rentalapp2.exceptions.ServiceErrors;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    @ExceptionHandler(CustomException.class)
+    public ModelAndView handleCustomException(CustomException ex, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("error");
+        mav.addObject("errorMessage", ex.getErrorCode());
+        return mav;
+    }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception e) {
-        LOGGER.error("An error occurred: ", e);
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred: " + e.getMessage());
+    public ModelAndView handleException(Exception ex, HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("error");
+        mav.addObject("errorMessage", ServiceErrors.UNEXPECTED_ERROR);
+        return mav;
     }
 }

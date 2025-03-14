@@ -3,6 +3,9 @@ package itacademy.rentalapp2.service;
 import itacademy.rentalapp2.dto.AddressDto;
 import itacademy.rentalapp2.dto.AddressFilterDto;
 import itacademy.rentalapp2.entity.AddressEntity;
+import itacademy.rentalapp2.exceptions.DatabaseErrors;
+import itacademy.rentalapp2.exceptions.CustomException;
+import itacademy.rentalapp2.exceptions.ServiceErrors;
 import itacademy.rentalapp2.repository.AddressRepository;
 import itacademy.rentalapp2.repository.ApartmentRepository;
 import itacademy.rentalapp2.specification.AddressSpecification;
@@ -10,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.convert.ConversionService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -34,9 +38,12 @@ public class AddressServiceImpl implements AddressService {
             AddressEntity savedEntity = addressRepository.save(addressEntity);
             LOGGER.debug("Address saved successfully: {}", savedEntity);
             return conversionService.convert(savedEntity, AddressDto.class);
+        } catch (DataIntegrityViolationException e) {
+            LOGGER.error("Error saving address: {}", addressDto, e);
+            throw new CustomException(DatabaseErrors.ADDRESS_ALREADY_EXISTS);
         } catch (Exception e) {
             LOGGER.error("Error saving address: {}", addressDto, e);
-            throw e;
+            throw new CustomException(ServiceErrors.SAVE_ERROR);
         }
     }
 
@@ -47,7 +54,7 @@ public class AddressServiceImpl implements AddressService {
             AddressEntity addressEntity = addressRepository.findById(id)
                     .orElseThrow(() -> {
                         LOGGER.error("Address not found with id: {}", id);
-                        return new RuntimeException("Address not found");
+                        return new CustomException(DatabaseErrors.ADDRESS_NOT_FOUND);
                     });
             addressEntity.setCity(addressDto.getCity());
             addressEntity.setStreet(addressDto.getStreet());
@@ -55,9 +62,12 @@ public class AddressServiceImpl implements AddressService {
             AddressEntity updatedEntity = addressRepository.save(addressEntity);
             LOGGER.debug("Address updated successfully: {}", updatedEntity);
             return conversionService.convert(updatedEntity, AddressDto.class);
+        } catch (DataIntegrityViolationException e) {
+            LOGGER.error("Error updating address with id {}: {}", id, addressDto, e);
+            throw new CustomException(DatabaseErrors.ADDRESS_ALREADY_EXISTS);
         } catch (Exception e) {
             LOGGER.error("Error updating address with id {}: {}", id, addressDto, e);
-            throw e;
+            throw new CustomException(ServiceErrors.UPDATE_ERROR);
         }
     }
 
@@ -65,18 +75,15 @@ public class AddressServiceImpl implements AddressService {
     public void deleteAddress(Long id) {
         LOGGER.debug("Deleting address with id: {}", id);
         try {
-            // Проверяем, есть ли связанные квартиры
             if (apartmentRepository.existsByAddressId(id)) {
                 LOGGER.error("Cannot delete address with id {}: Apartments are linked to this address", id);
-                throw new RuntimeException("К этому адресу уже привязаны квартиры. Если хотите удалить этот адрес, то сначала удалите все связанные с этим адресом квартиры.");
+                throw new CustomException(DatabaseErrors.ADDRESS_HAS_LINKED_APARTMENTS);
             }
-
-            // Если связанных квартир нет, удаляем адрес
             addressRepository.deleteById(id);
             LOGGER.debug("Address deleted successfully with id: {}", id);
         } catch (Exception e) {
             LOGGER.error("Error deleting address with id: {}", id, e);
-            throw e;
+            throw new CustomException(ServiceErrors.DELETE_ERROR);
         }
     }
 
@@ -85,12 +92,15 @@ public class AddressServiceImpl implements AddressService {
         LOGGER.debug("Fetching address by id: {}", id);
         try {
             AddressEntity addressEntity = addressRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Address not found"));
+                    .orElseThrow(() -> {
+                        LOGGER.error("Address not found with id: {}", id);
+                        return new CustomException(DatabaseErrors.ADDRESS_NOT_FOUND);
+                    });
             LOGGER.debug("Address fetched successfully: {}", addressEntity);
             return conversionService.convert(addressEntity, AddressDto.class);
         } catch (Exception e) {
             LOGGER.error("Error fetching address with id: {}", id, e);
-            throw e;
+            throw new CustomException(ServiceErrors.FIND_BY_ID_ERROR);
         }
     }
 
@@ -121,7 +131,7 @@ public class AddressServiceImpl implements AddressService {
                     conversionService.convert(addressEntity, AddressDto.class));
         } catch (Exception e) {
             LOGGER.error("Error fetching addresses by filter: {}", filter, e);
-            throw e;
+            throw new CustomException(ServiceErrors.FIND_BY_FILTER_ERROR);
         }
     }
 }
