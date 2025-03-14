@@ -52,14 +52,7 @@ public class AddressServiceImpl implements AddressService {
     public AddressDto updateAddress(Long id, AddressDto addressDto) {
         LOGGER.debug("Updating address with id {}: {}", id, addressDto);
         try {
-            AddressEntity addressEntity = addressRepository.findById(id)
-                    .orElseThrow(() -> {
-                        LOGGER.error("Address not found with id: {}", id);
-                        return new CustomException(DatabaseErrors.ADDRESS_NOT_FOUND);
-                    });
-            addressEntity.setCity(addressDto.getCity());
-            addressEntity.setStreet(addressDto.getStreet());
-            addressEntity.setHouseNumber(addressDto.getHouseNumber());
+            AddressEntity addressEntity = setAddressEntity(id, addressDto);
             AddressEntity updatedEntity = addressRepository.save(addressEntity);
             LOGGER.debug("Address updated successfully: {}", updatedEntity);
             return conversionService.convert(updatedEntity, AddressDto.class);
@@ -94,11 +87,7 @@ public class AddressServiceImpl implements AddressService {
     public AddressDto getAddressById(Long id) {
         LOGGER.debug("Fetching address by id: {}", id);
         try {
-            AddressEntity addressEntity = addressRepository.findById(id)
-                    .orElseThrow(() -> {
-                        LOGGER.error("Address not found with id: {}", id);
-                        return new CustomException(DatabaseErrors.ADDRESS_NOT_FOUND);
-                    });
+            AddressEntity addressEntity = getAddressEntity(id);
             LOGGER.debug("Address fetched successfully: {}", addressEntity);
             return conversionService.convert(addressEntity, AddressDto.class);
         } catch (Exception e) {
@@ -138,5 +127,21 @@ public class AddressServiceImpl implements AddressService {
             LOGGER.error("Error fetching addresses by filter: {}", filter, e);
             throw new CustomException(ServiceErrors.FIND_BY_FILTER_ERROR);
         }
+    }
+
+    private AddressEntity getAddressEntity(Long id) {
+        return addressRepository.findById(id)
+                .orElseThrow(() -> {
+                    LOGGER.error("Address not found with id: {}", id);
+                    return new CustomException(DatabaseErrors.ADDRESS_NOT_FOUND);
+                });
+    }
+
+    private AddressEntity setAddressEntity(Long id, AddressDto addressDto) {
+        AddressEntity addressEntity = getAddressEntity(id);
+        addressEntity.setCity(addressDto.getCity());
+        addressEntity.setStreet(addressDto.getStreet());
+        addressEntity.setHouseNumber(addressDto.getHouseNumber());
+        return addressEntity;
     }
 }
