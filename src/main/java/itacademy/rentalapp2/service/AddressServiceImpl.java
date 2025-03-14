@@ -81,6 +81,8 @@ public class AddressServiceImpl implements AddressService {
             }
             addressRepository.deleteById(id);
             LOGGER.debug("Address deleted successfully with id: {}", id);
+        } catch (CustomException e) {
+            throw e;
         } catch (Exception e) {
             LOGGER.error("Error deleting address with id: {}", id, e);
             throw new CustomException(ServiceErrors.DELETE_ERROR);
