@@ -1,4 +1,4 @@
-package itacademy.rentalapp2.exceptions;
+package itacademy.rentalapp2.exception;
 
 import lombok.Getter;
 

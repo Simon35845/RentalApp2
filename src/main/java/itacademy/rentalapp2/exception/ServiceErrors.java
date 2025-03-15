@@ -1,4 +1,4 @@
-package itacademy.rentalapp2.exceptions;
+package itacademy.rentalapp2.exception;
 
 public class ServiceErrors {
     public static final String SAVE_ERROR = "Ошибка сохранения";

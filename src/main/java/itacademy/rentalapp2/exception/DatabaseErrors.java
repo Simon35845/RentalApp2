@@ -1,4 +1,4 @@
-package itacademy.rentalapp2.exceptions;
+package itacademy.rentalapp2.exception;
 
 public class DatabaseErrors {
     public static final String ADDRESS_ALREADY_EXISTS = "Адрес с такими значениями уже существует! " +
@@ -10,4 +10,8 @@ public class DatabaseErrors {
     public static final String APARTMENT_ALREADY_EXISTS = "Квартира с такими значениями уже существует! " +
             "Введите другие данные.";
     public static final String APARTMENT_NOT_FOUND = "Квартира не найдена";
+
+    public static final String LANDLORD_ALREADY_EXISTS = "Арендодатель с таким e-mail уже существует! " +
+            "Введите другие данные.";
+    public static final String LANDLORD_NOT_FOUND = "Арендодатель не найден";
 }

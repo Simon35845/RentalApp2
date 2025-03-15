@@ -13,5 +13,4 @@ public interface ApartmentService {
     ApartmentDto getApartmentById(Long id);
     Page<ApartmentDto> getApartmentsByFilter(ApartmentFilterDto filter);
     Page<AddressDto> getAddressesByFilter(AddressFilterDto filter);
-    AddressDto getAddressById(Long id);
 }

@@ -6,9 +6,9 @@ import itacademy.rentalapp2.dto.ApartmentDto;
 import itacademy.rentalapp2.dto.ApartmentFilterDto;
 import itacademy.rentalapp2.entity.AddressEntity;
 import itacademy.rentalapp2.entity.ApartmentEntity;
-import itacademy.rentalapp2.exceptions.CustomException;
-import itacademy.rentalapp2.exceptions.DatabaseErrors;
-import itacademy.rentalapp2.exceptions.ServiceErrors;
+import itacademy.rentalapp2.exception.CustomException;
+import itacademy.rentalapp2.exception.DatabaseErrors;
+import itacademy.rentalapp2.exception.ServiceErrors;
 import itacademy.rentalapp2.repository.AddressRepository;
 import itacademy.rentalapp2.repository.ApartmentRepository;
 import itacademy.rentalapp2.specification.ApartmentSpecification;
@@ -136,11 +136,6 @@ public class ApartmentServiceImpl implements ApartmentService {
     @Override
     public Page<AddressDto> getAddressesByFilter(AddressFilterDto filter) {
         return addressService.getAddressesByFilter(filter);
-    }
-
-    @Override
-    public AddressDto getAddressById(Long id) {
-        return addressService.getAddressById(id);
     }
 
     private AddressEntity getAddressEntity(Long id) {

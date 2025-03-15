@@ -1,8 +1,8 @@
 package itacademy.rentalapp2.advice;
 
-import itacademy.rentalapp2.exceptions.CustomException;
-import itacademy.rentalapp2.exceptions.DatabaseErrors;
-import itacademy.rentalapp2.exceptions.ServiceErrors;
+import itacademy.rentalapp2.exception.CustomException;
+import itacademy.rentalapp2.exception.DatabaseErrors;
+import itacademy.rentalapp2.exception.ServiceErrors;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
