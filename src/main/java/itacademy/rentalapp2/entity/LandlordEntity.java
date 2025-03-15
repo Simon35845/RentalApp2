@@ -17,7 +17,6 @@ import java.util.Set;
 @Entity
 @Table(name = "landlords")
 public class LandlordEntity extends PersonEntity {
-
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},
             fetch = FetchType.LAZY, mappedBy = "landlord")
     @Builder.Default

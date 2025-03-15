@@ -22,6 +22,9 @@
             <column name="address_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_apartment_address" references="addresses(id)"/>
             </column>
+            <column name="landlord_id" type="bigint">
+            <constraints foreignKeyName="fk_apartment_landlord" references="landlords(id)"/>
+            </column>
         </createTable>
 
         <addUniqueConstraint

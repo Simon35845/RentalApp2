@@ -11,7 +11,6 @@ import lombok.*;
 @Table(name = "apartments", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"apartment_number", "address_id"})
 })
-
 public class ApartmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +33,6 @@ public class ApartmentEntity {
     private AddressEntity address;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "landlord_id", nullable = false)
+    @JoinColumn(name = "landlord_id")
     private LandlordEntity landlord;
 }

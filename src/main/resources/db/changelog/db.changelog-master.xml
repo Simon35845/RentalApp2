@@ -8,6 +8,10 @@
              relativeToChangelogFile="true"/>
     <include file="V1.0.0/2025-02-24-create-table-addresses.xml"
              relativeToChangelogFile="true"/>
+    <include file="V1.0.0/2025-03-15-create-table-persons.xml"
+             relativeToChangelogFile="true"/>
+    <include file="V1.0.0/2025-03-15-create-table-landlords.xml"
+             relativeToChangelogFile="true"/>
     <include file="V1.0.0/2025-03-08-create-table-apartments.xml"
              relativeToChangelogFile="true"/>
     <include file="V1.0.0/2025-03-04-insert-addresses-data.xml"
