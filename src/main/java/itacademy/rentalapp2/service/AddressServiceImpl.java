@@ -52,7 +52,9 @@ public class AddressServiceImpl implements AddressService {
     public AddressDto updateAddress(Long id, AddressDto addressDto) {
         LOGGER.debug("Updating address with id {}: {}", id, addressDto);
         try {
-            AddressEntity addressEntity = setAddressEntity(id, addressDto);
+            AddressEntity fetchedEntity = getAddressEntity(id);
+            AddressEntity addressEntity = conversionService.convert(addressDto, AddressEntity.class);
+            addressEntity.setId(fetchedEntity.getId());
             AddressEntity updatedEntity = addressRepository.save(addressEntity);
             LOGGER.debug("Address updated successfully: {}", updatedEntity);
             return conversionService.convert(updatedEntity, AddressDto.class);
@@ -110,18 +112,19 @@ public class AddressServiceImpl implements AddressService {
 
             Specification<AddressEntity> spec = Specification
                     .where(AddressSpecification.cityContains(filter.getCity()))
-                    .and(AddressSpecification.streetContains(filter.getStreet()));
+                    .and(AddressSpecification.streetContains(filter.getStreet()))
+                    .and(AddressSpecification.houseNumberContains(filter.getHouseNumber()));
 
-            Page<AddressEntity> addressesPage = addressRepository.findAll(spec, pageable);
+            Page<AddressEntity> page = addressRepository.findAll(spec, pageable);
 
-            if (pageNumber > addressesPage.getTotalPages()) {
-                pageNumber = addressesPage.getTotalPages() - 1;
+            if (pageNumber > page.getTotalPages()) {
+                pageNumber = page.getTotalPages() - 1;
                 pageable = PageRequest.of(pageNumber, filter.getPageSize(),
                         Sort.by(Sort.Direction.ASC, "id"));
-                addressesPage = addressRepository.findAll(pageable);
+                page = addressRepository.findAll(pageable);
             }
-            LOGGER.debug("Addresses fetched successfully: {}", addressesPage.getContent());
-            return addressesPage.map(addressEntity ->
+            LOGGER.debug("Addresses fetched successfully: {}", page.getContent());
+            return page.map(addressEntity ->
                     conversionService.convert(addressEntity, AddressDto.class));
         } catch (Exception e) {
             LOGGER.error("Error fetching addresses by filter: {}", filter, e);
@@ -135,13 +138,5 @@ public class AddressServiceImpl implements AddressService {
                     LOGGER.error("Address not found with id: {}", id);
                     return new CustomException(DatabaseErrors.ADDRESS_NOT_FOUND);
                 });
-    }
-
-    private AddressEntity setAddressEntity(Long id, AddressDto addressDto) {
-        AddressEntity addressEntity = getAddressEntity(id);
-        addressEntity.setCity(addressDto.getCity());
-        addressEntity.setStreet(addressDto.getStreet());
-        addressEntity.setHouseNumber(addressDto.getHouseNumber());
-        return addressEntity;
     }
 }

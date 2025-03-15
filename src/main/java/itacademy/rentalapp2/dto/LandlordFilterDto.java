@@ -10,6 +10,6 @@ import lombok.experimental.SuperBuilder;
 @Data
 @EqualsAndHashCode(callSuper=true)
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 public class LandlordFilterDto extends PersonFilterDto {
 }

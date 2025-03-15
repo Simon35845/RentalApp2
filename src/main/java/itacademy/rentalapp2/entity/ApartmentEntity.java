@@ -9,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "apartments", uniqueConstraints = {
-@UniqueConstraint(columnNames = {"apartment_number", "address_id"})
+        @UniqueConstraint(columnNames = {"apartment_number", "address_id"})
 })
 
 public class ApartmentEntity {
@@ -32,4 +32,8 @@ public class ApartmentEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", nullable = false)
     private AddressEntity address;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "landlord_id", nullable = false)
+    private LandlordEntity landlord;
 }

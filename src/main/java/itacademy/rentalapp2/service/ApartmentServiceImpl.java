@@ -117,15 +117,15 @@ public class ApartmentServiceImpl implements ApartmentService {
                             .and(ApartmentSpecification.streetContains(filter.getStreet()))
                             .and(ApartmentSpecification.houseNumberContains(filter.getHouseNumber())));
 
-            Page<ApartmentEntity> apartmentsPage = apartmentRepository.findAll(spec, pageable);
+            Page<ApartmentEntity> page = apartmentRepository.findAll(spec, pageable);
 
-            if (pageNumber > apartmentsPage.getTotalPages()) {
-                pageNumber = apartmentsPage.getTotalPages() - 1;
+            if (pageNumber > page.getTotalPages()) {
+                pageNumber = page.getTotalPages() - 1;
                 pageable = PageRequest.of(pageNumber, filter.getPageSize());
-                apartmentsPage = apartmentRepository.findAll(pageable);
+                page = apartmentRepository.findAll(pageable);
             }
-            LOGGER.debug("Apartments fetched successfully: {}", apartmentsPage.getContent());
-            return apartmentsPage.map(apartmentEntity ->
+            LOGGER.debug("Apartments fetched successfully: {}", page.getContent());
+            return page.map(apartmentEntity ->
                     conversionService.convert(apartmentEntity, ApartmentDto.class));
         } catch (Exception e) {
             LOGGER.error("Error fetching apartments by filter: {}", filter, e);

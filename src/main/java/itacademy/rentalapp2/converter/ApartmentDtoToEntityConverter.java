@@ -10,7 +10,6 @@ public class ApartmentDtoToEntityConverter implements Converter<ApartmentDto, Ap
     @Override
     public ApartmentEntity convert(ApartmentDto dto) {
         return ApartmentEntity.builder()
-                .id(dto.getId())
                 .apartmentNumber(dto.getApartmentNumber())
                 .floor(dto.getFloor())
                 .countOfRooms(dto.getCountOfRooms())

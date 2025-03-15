@@ -10,7 +10,6 @@ public class LandlordDtoToEntityConverter implements Converter<LandlordDto, Land
     @Override
     public LandlordEntity convert(LandlordDto dto) {
         return LandlordEntity.builder()
-                .id(dto.getId())
                 .name(dto.getName())
                 .surname(dto.getSurname())
                 .patronymic(dto.getPatronymic())

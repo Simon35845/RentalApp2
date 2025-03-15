@@ -2,6 +2,9 @@ package itacademy.rentalapp2.specification;
 
 import itacademy.rentalapp2.entity.AddressEntity;
 import itacademy.rentalapp2.entity.AddressEntity_;
+import itacademy.rentalapp2.entity.ApartmentEntity;
+import itacademy.rentalapp2.entity.ApartmentEntity_;
+import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
 
@@ -27,6 +30,15 @@ public class AddressSpecification {
                     criteriaBuilder.lower(root.get(AddressEntity_.street)),
                     "%" + street.toLowerCase() + "%"
             );
+        };
+    }
+
+    public static Specification<AddressEntity> houseNumberContains(Integer houseNumber) {
+        return (root, query, criteriaBuilder) -> {
+            if (houseNumber == null) {
+                return criteriaBuilder.conjunction();
+            }
+            return criteriaBuilder.equal(root.get(AddressEntity_.houseNumber), houseNumber);
         };
     }
 }

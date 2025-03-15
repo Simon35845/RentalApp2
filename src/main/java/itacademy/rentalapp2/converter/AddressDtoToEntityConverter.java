@@ -10,7 +10,6 @@ public class AddressDtoToEntityConverter implements Converter<AddressDto, Addres
     @Override
     public AddressEntity convert(AddressDto dto) {
         return AddressEntity.builder()
-                .id(dto.getId())
                 .city(dto.getCity())
                 .street(dto.getStreet())
                 .houseNumber(dto.getHouseNumber())
