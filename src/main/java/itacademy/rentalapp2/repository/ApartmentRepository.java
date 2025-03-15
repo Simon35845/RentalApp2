@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ApartmentRepository extends
-        JpaRepository<ApartmentEntity, Long>, JpaSpecificationExecutor<ApartmentEntity> {
+public interface ApartmentRepository extends JpaRepository<ApartmentEntity, Long>,
+        JpaSpecificationExecutor<ApartmentEntity> {
     boolean existsByAddressId(Long addressId);
 }
