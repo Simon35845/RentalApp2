@@ -21,6 +21,7 @@ public class ApartmentEntityToDtoConverter implements Converter<ApartmentEntity,
                 .totalSquare(entity.getTotalSquare())
                 .addressId(entity.getAddress().getId())
                 .address(addressConverter.convert(entity.getAddress()))
+                .landlordId(entity.getLandlord() != null ? entity.getLandlord().getId() : null)
                 .build();
     }
 }

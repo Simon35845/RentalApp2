@@ -31,7 +31,7 @@ public class ApartmentController {
 
     @GetMapping("/save1")
     public String showSaveForm1(@ModelAttribute("addressFilter") AddressFilterDto addressFilter, Model model) {
-        Page<AddressDto> addressesPage = apartmentService.getAddressesByFilter(addressFilter);
+        Page<AddressDto> addressesPage = apartmentService.getAllAddresses(addressFilter);
         model.addAttribute("addresses", addressesPage);
         model.addAttribute("addressFilter", addressFilter);
         model.addAttribute("apartment", new ApartmentDto());

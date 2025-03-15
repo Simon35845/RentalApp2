@@ -12,5 +12,5 @@ public interface ApartmentService {
     void deleteApartment(Long id);
     ApartmentDto getApartmentById(Long id);
     Page<ApartmentDto> getApartmentsByFilter(ApartmentFilterDto filter);
-    Page<AddressDto> getAddressesByFilter(AddressFilterDto filter);
+    Page<AddressDto> getAllAddresses(AddressFilterDto filter);
 }

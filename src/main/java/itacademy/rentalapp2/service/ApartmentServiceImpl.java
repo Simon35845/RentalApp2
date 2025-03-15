@@ -134,8 +134,13 @@ public class ApartmentServiceImpl implements ApartmentService {
     }
 
     @Override
-    public Page<AddressDto> getAddressesByFilter(AddressFilterDto filter) {
-        return addressService.getAddressesByFilter(filter);
+    public Page<AddressDto> getAllAddresses(AddressFilterDto filter) {
+        try {
+            return addressService.getAddressesByFilter(filter);
+        } catch (Exception e) {
+            LOGGER.error("Error fetching addresses: {}", filter, e);
+            throw new CustomException(ServiceErrors.FIND_BY_FILTER_ERROR);
+        }
     }
 
     private AddressEntity getAddressEntity(Long id) {

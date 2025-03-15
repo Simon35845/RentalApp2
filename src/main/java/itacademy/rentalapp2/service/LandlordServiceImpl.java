@@ -25,14 +25,17 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class LandlordServiceImpl implements LandlordService {
     public static final Logger LOGGER = LoggerFactory.getLogger(LandlordServiceImpl.class);
     private final LandlordRepository landlordRepository;
-    private final ConversionService conversionService;
     private final ApartmentRepository apartmentRepository;
+    private final ConversionService conversionService;
+    private final ApartmentService apartmentService;
 
     @Override
     public LandlordDto saveLandlord(LandlordDto landlordDto) {
@@ -161,6 +164,44 @@ public class LandlordServiceImpl implements LandlordService {
         } catch (Exception e) {
             LOGGER.error("Error fetching apartments by landlord id: {}", id, e);
             throw new CustomException(ServiceErrors.FIND_BY_FILTER_ERROR);
+        }
+    }
+
+    @Override
+    public Page<ApartmentDto> getAllApartments(ApartmentFilterDto filter, Long landlordId) {
+        LOGGER.debug("Fetching all apartments with filter: {}", filter);
+        try {
+            return apartmentService.getApartmentsByFilter(filter);
+        } catch (Exception e) {
+            LOGGER.error("Error fetching apartments: {}", filter, e);
+            throw new CustomException(ServiceErrors.FIND_BY_FILTER_ERROR);
+        }
+    }
+
+    @Override
+    public void addApartmentsToLandlord(Long landlordId, List<Long> apartmentIds) {
+        LOGGER.debug("Adding apartments to landlord with id: {}", landlordId);
+        try {
+            LandlordEntity landlordEntity = getLandlordEntity(landlordId);
+            List<ApartmentEntity> relatedApartments = apartmentRepository.findByLandlordId(landlordId);
+
+            for (ApartmentEntity apartment : relatedApartments) {
+                if (!apartmentIds.contains(apartment.getId())) {
+                    apartment.setLandlord(null);
+                }
+            }
+
+            List<ApartmentEntity> newApartments = apartmentRepository.findAllById(apartmentIds);
+            for (ApartmentEntity apartment : newApartments) {
+                apartment.setLandlord(landlordEntity);
+            }
+
+            apartmentRepository.saveAll(relatedApartments);
+            apartmentRepository.saveAll(newApartments);
+            LOGGER.debug("Apartments updated successfully for landlord: {}", landlordId);
+        } catch (Exception e) {
+            LOGGER.error("Error updating apartments for landlord: {}", landlordId, e);
+            throw new CustomException(ServiceErrors.UPDATE_ERROR);
         }
     }
 

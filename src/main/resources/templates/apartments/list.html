@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <meta charset="UTF-8">
     <title>Apartments list</title>
@@ -76,30 +77,9 @@
         <td th:text="${apartment.floor}"></td>
         <td th:text="${apartment.countOfRooms}"></td>
         <td th:text="${apartment.totalSquare}"></td>
-        <td>
-            <span th:if="${apartment.address != null}">
-                [[${apartment.address.city}]]
-            </span>
-            <span th:unless="${apartment.address != null}">
-                Нет данных
-            </span>
-        </td>
-        <td>
-            <span th:if="${apartment.address != null}">
-                [[${apartment.address.street}]]
-            </span>
-            <span th:unless="${apartment.address != null}">
-                Нет данных
-            </span>
-        </td>
-        <td>
-            <span th:if="${apartment.address != null}">
-                [[${apartment.address.houseNumber}]]
-            </span>
-            <span th:unless="${apartment.address != null}">
-                Нет данных
-            </span>
-        </td>
+        <td th:text="${apartment.address.city}"></td>
+        <td th:text="${apartment.address.street}"></td>
+        <td th:text="${apartment.address.houseNumber}"></td>
         <td sec:authorize="hasAuthority('ADMIN')">
             <a class="update-button" th:href="@{/apartments/edit1/{id}(id=${apartment.id})}">Изменить</a>
             <a class="delete-button" th:href="@{/apartments/delete/{id}(id=${apartment.id})}">Удалить</a>
