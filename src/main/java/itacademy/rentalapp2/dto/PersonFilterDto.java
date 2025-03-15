@@ -11,9 +11,10 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper=true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApartmentFilterDto extends AddressFilterDto {
-    private Integer apartmentNumber;
-    private Integer floor;
-    private Integer countOfRooms;
-    private Double totalSquare;
+public abstract class PersonFilterDto extends PageFilterDto {
+    private String name;
+    private String surname;
+    private String patronymic;
+    private Integer age;
+    private String email;
 }

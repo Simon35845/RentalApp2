@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PageFilterDto {
+public abstract class PageFilterDto {
     @Builder.Default
     @NotNull
     private int pageNumber = 1;
