@@ -2,11 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Редактирование квартиры</title>
+    <title>Изменение квартиры</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body>
-<h1>Редактирование квартиры</h1>
+<h1>Изменение квартиры</h1>
 <form th:action="@{/apartments/edit1/{id}(id=${apartment.id})}" th:object="${apartment}" method="post">
     <div>
         <label for="apartmentNumber">Номер квартиры:</label>
