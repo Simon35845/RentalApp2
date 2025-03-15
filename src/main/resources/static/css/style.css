@@ -113,6 +113,19 @@ td {
     margin-bottom: 15px;
 }
 
+.view-button {
+    padding: 5px 10px;
+    background-color: #3498db; /* Синий цвет */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.view-button:hover {
+    background-color: #2980b9; /* Темно-синий цвет при наведении */
+}
+
 .pagination-container {
     display: flex;
     justify-content: start;

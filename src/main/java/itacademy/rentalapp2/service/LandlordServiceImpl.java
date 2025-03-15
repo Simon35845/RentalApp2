@@ -1,12 +1,17 @@
 package itacademy.rentalapp2.service;
 
+import itacademy.rentalapp2.dto.ApartmentDto;
+import itacademy.rentalapp2.dto.ApartmentFilterDto;
 import itacademy.rentalapp2.dto.LandlordDto;
 import itacademy.rentalapp2.dto.LandlordFilterDto;
+import itacademy.rentalapp2.entity.ApartmentEntity;
 import itacademy.rentalapp2.entity.LandlordEntity;
 import itacademy.rentalapp2.exception.CustomException;
 import itacademy.rentalapp2.exception.DatabaseErrors;
 import itacademy.rentalapp2.exception.ServiceErrors;
+import itacademy.rentalapp2.repository.ApartmentRepository;
 import itacademy.rentalapp2.repository.LandlordRepository;
+import itacademy.rentalapp2.specification.ApartmentSpecification;
 import itacademy.rentalapp2.specification.LandlordSpecification;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -27,6 +32,7 @@ public class LandlordServiceImpl implements LandlordService {
     public static final Logger LOGGER = LoggerFactory.getLogger(LandlordServiceImpl.class);
     private final LandlordRepository landlordRepository;
     private final ConversionService conversionService;
+    private final ApartmentRepository apartmentRepository;
 
     @Override
     public LandlordDto saveLandlord(LandlordDto landlordDto) {
@@ -117,6 +123,43 @@ public class LandlordServiceImpl implements LandlordService {
                     conversionService.convert(landlordEntity, LandlordDto.class));
         } catch (Exception e) {
             LOGGER.error("Error fetching landlords by filter: {}", filter, e);
+            throw new CustomException(ServiceErrors.FIND_BY_FILTER_ERROR);
+        }
+    }
+
+    @Override
+    public Page<ApartmentDto> getApartmentsByLandlordId(Long id, ApartmentFilterDto filter) {
+        LOGGER.debug("Fetching apartments by landlord id: {}", id);
+        try {
+            int pageNumber = filter.getPageNumber() - 1;
+            if (pageNumber < 0) {
+                pageNumber = 0;
+            }
+
+            Pageable pageable = PageRequest.of(pageNumber, filter.getPageSize());
+
+            Specification<ApartmentEntity> spec = Specification
+                    .where(ApartmentSpecification.byLandlordId(id))
+                    .and(ApartmentSpecification.apartmentNumberContains(filter.getApartmentNumber()))
+                    .and(ApartmentSpecification.floorContains(filter.getFloor()))
+                    .and(ApartmentSpecification.countOfRoomsContains(filter.getCountOfRooms()))
+                    .and(ApartmentSpecification.totalSquareContains(filter.getTotalSquare()))
+                    .and(ApartmentSpecification.cityContains(filter.getCity()))
+                    .and(ApartmentSpecification.streetContains(filter.getStreet()))
+                    .and(ApartmentSpecification.houseNumberContains(filter.getHouseNumber()));
+
+            Page<ApartmentEntity> page = apartmentRepository.findAll(spec, pageable);
+
+            if (pageNumber > page.getTotalPages()) {
+                pageNumber = page.getTotalPages() - 1;
+                pageable = PageRequest.of(pageNumber, filter.getPageSize());
+                page = apartmentRepository.findAll(spec, pageable);
+            }
+            LOGGER.debug("Apartments fetched successfully: {}", page.getContent());
+            return page.map(apartmentEntity ->
+                    conversionService.convert(apartmentEntity, ApartmentDto.class));
+        } catch (Exception e) {
+            LOGGER.error("Error fetching apartments by landlord id: {}", id, e);
             throw new CustomException(ServiceErrors.FIND_BY_FILTER_ERROR);
         }
     }

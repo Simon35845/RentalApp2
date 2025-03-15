@@ -3,7 +3,7 @@
       xmlns:sec="http://www.springframework.org/schema/security">
 <head>
     <meta charset="UTF-8">
-    <title>Список арендодателей</title>
+    <title>Landlords list</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 
 </head>
@@ -56,6 +56,7 @@
         <th>Отчество</th>
         <th>Возраст</th>
         <th>E-mail</th>
+        <th>Квартиры</th>
         <th sec:authorize="hasAuthority('ADMIN')">Действия</th>
     </tr>
     </thead>
@@ -67,6 +68,9 @@
         <td th:text="${landlord.patronymic}"></td>
         <td th:text="${landlord.age}"></td>
         <td th:text="${landlord.email}"></td>
+        <td>
+            <a class="view-button" th:href="@{/landlords/{id}/apartments(id=${landlord.id})}">Просмотреть квартиры</a>
+        </td>
         <td sec:authorize="hasAuthority('ADMIN')">
             <div class="button-container-2">
                 <a class="update-button" th:href="@{/landlords/edit/{id}(id=${landlord.id})}">Изменить</a>

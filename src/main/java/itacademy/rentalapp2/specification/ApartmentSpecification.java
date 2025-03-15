@@ -1,9 +1,6 @@
 package itacademy.rentalapp2.specification;
 
-import itacademy.rentalapp2.entity.AddressEntity;
-import itacademy.rentalapp2.entity.AddressEntity_;
-import itacademy.rentalapp2.entity.ApartmentEntity;
-import itacademy.rentalapp2.entity.ApartmentEntity_;
+import itacademy.rentalapp2.entity.*;
 import jakarta.persistence.criteria.Join;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.util.StringUtils;
@@ -78,6 +75,15 @@ public class ApartmentSpecification {
             }
             Join<ApartmentEntity, AddressEntity> addressJoin = root.join(ApartmentEntity_.address);
             return criteriaBuilder.equal(addressJoin.get(AddressEntity_.houseNumber), houseNumber);
+        };
+    }
+
+    public static Specification<ApartmentEntity> byLandlordId(Long landlordId) {
+        return (root, query, criteriaBuilder) -> {
+            if (landlordId == null) {
+                return criteriaBuilder.conjunction();
+            }
+            return criteriaBuilder.equal(root.get(ApartmentEntity_.landlord).get(LandlordEntity_.id), landlordId);
         };
     }
 }
