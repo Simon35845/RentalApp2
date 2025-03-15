@@ -7,26 +7,26 @@
 </head>
 <body>
 <h1>Добавление квартиры - Шаг 2</h1>
-<form method="post" th:action="@{/logout}">
+<form class="form-field" method="post" th:action="@{/logout}">
   <button class="main-link-button" type="submit">LOGOUT</button>
 </form>
 
 <form th:action="@{/apartments/save2}" th:object="${apartment}" method="post">
   <input type="hidden" th:field="*{addressId}">
 
-  <div>
+  <div class="form-field">
     <label for="apartmentNumber">Номер квартиры:</label>
     <input type="number" id="apartmentNumber" th:field="*{apartmentNumber}" required>
   </div>
-  <div>
+  <div class="form-field">
     <label for="floor">Этаж:</label>
     <input type="number" id="floor" th:field="*{floor}" required>
   </div>
-  <div>
+  <div class="form-field">
     <label for="countOfRooms">Количество комнат:</label>
     <input type="number" id="countOfRooms" th:field="*{countOfRooms}" required>
   </div>
-  <div>
+  <div class="form-field">
     <label for="totalSquare">Общая площадь:</label>
     <input type="number" step="0.01" id="totalSquare" th:field="*{totalSquare}">
   </div>

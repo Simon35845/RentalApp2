@@ -79,20 +79,20 @@
 
 <div class="pagination-container">
     <form th:action="@{/addresses}" method="get" th:if="${landlords.hasPrevious()}">
-        <input type="hidden" th:name="city" th:value="${landlordFilter.name}">
-        <input type="hidden" th:name="city" th:value="${landlordFilter.surname}">
-        <input type="hidden" th:name="city" th:value="${landlordFilter.patronymic}">
-        <input type="hidden" th:name="city" th:value="${landlordFilter.age}">
-        <input type="hidden" th:name="city" th:value="${landlordFilter.email}">
+        <input type="hidden" th:name="name" th:value="${landlordFilter.name}">
+        <input type="hidden" th:name="surname" th:value="${landlordFilter.surname}">
+        <input type="hidden" th:name="patronymic" th:value="${landlordFilter.patronymic}">
+        <input type="hidden" th:name="age" th:value="${landlordFilter.age}">
+        <input type="hidden" th:name="email" th:value="${landlordFilter.email}">
         <input type="hidden" th:name="pageNumber" th:value="${landlords.number}">
         <button type="submit" class="pagination-button">Предыдущая страница</button>
     </form>
-    <form th:action="@{/addresses}" method="get" th:if="${addresses.hasNext()}">
-        <input type="hidden" th:name="city" th:value="${landlordFilter.name}">
-        <input type="hidden" th:name="city" th:value="${landlordFilter.surname}">
-        <input type="hidden" th:name="city" th:value="${landlordFilter.patronymic}">
-        <input type="hidden" th:name="city" th:value="${landlordFilter.age}">
-        <input type="hidden" th:name="city" th:value="${landlordFilter.email}">
+    <form th:action="@{/addresses}" method="get" th:if="${landlords.hasNext()}">
+        <input type="hidden" th:name="name" th:value="${landlordFilter.name}">
+        <input type="hidden" th:name="surname" th:value="${landlordFilter.surname}">
+        <input type="hidden" th:name="patronymic" th:value="${landlordFilter.patronymic}">
+        <input type="hidden" th:name="age" th:value="${landlordFilter.age}">
+        <input type="hidden" th:name="email" th:value="${landlordFilter.email}">
         <input type="hidden" th:name="pageNumber" th:value="${landlords.number + 2}">
         <button type="submit" class="pagination-button">Следующая страница</button>
     </form>

@@ -109,6 +109,10 @@ td {
     box-sizing: border-box;
 }
 
+.form-field {
+    margin-bottom: 15px;
+}
+
 .pagination-container {
     display: flex;
     justify-content: start;
