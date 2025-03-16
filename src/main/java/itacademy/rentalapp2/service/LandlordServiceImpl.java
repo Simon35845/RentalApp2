@@ -25,8 +25,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -168,8 +166,8 @@ public class LandlordServiceImpl implements LandlordService {
     }
 
     @Override
-    public Page<ApartmentDto> getAllApartments(ApartmentFilterDto filter, Long landlordId) {
-        LOGGER.debug("Fetching all apartments with filter: {}", filter);
+    public Page<ApartmentDto> getAllApartments(ApartmentFilterDto filter) {
+        LOGGER.debug("Fetching all apartments with filter: ё{}", filter);
         try {
             return apartmentService.getApartmentsByFilter(filter);
         } catch (Exception e) {
@@ -179,28 +177,16 @@ public class LandlordServiceImpl implements LandlordService {
     }
 
     @Override
-    public void addApartmentsToLandlord(Long landlordId, List<Long> apartmentIds) {
-        LOGGER.debug("Adding apartments to landlord with id: {}", landlordId);
+    public void joinApartmentToLandlord(Long landlordId, Long apartmentId) {
+        LOGGER.debug("Join apartment to landlord with id: {}", landlordId);
         try {
+            ApartmentEntity apartmentEntity = getApartmentEntity(apartmentId);
             LandlordEntity landlordEntity = getLandlordEntity(landlordId);
-            List<ApartmentEntity> relatedApartments = apartmentRepository.findByLandlordId(landlordId);
-
-            for (ApartmentEntity apartment : relatedApartments) {
-                if (!apartmentIds.contains(apartment.getId())) {
-                    apartment.setLandlord(null);
-                }
-            }
-
-            List<ApartmentEntity> newApartments = apartmentRepository.findAllById(apartmentIds);
-            for (ApartmentEntity apartment : newApartments) {
-                apartment.setLandlord(landlordEntity);
-            }
-
-            apartmentRepository.saveAll(relatedApartments);
-            apartmentRepository.saveAll(newApartments);
-            LOGGER.debug("Apartments updated successfully for landlord: {}", landlordId);
+            apartmentEntity.setLandlord(landlordEntity);
+            ApartmentEntity updatedEntity = apartmentRepository.save(apartmentEntity);
+            LOGGER.debug("Apartment to landlord joined successfully: {}", updatedEntity);
         } catch (Exception e) {
-            LOGGER.error("Error updating apartments for landlord: {}", landlordId, e);
+            LOGGER.error("Error updating apartments for landlord with id: {}", landlordId, e);
             throw new CustomException(ServiceErrors.UPDATE_ERROR);
         }
     }
@@ -210,6 +196,14 @@ public class LandlordServiceImpl implements LandlordService {
                 .orElseThrow(() -> {
                     LOGGER.error("Landlord not found with id: {}", id);
                     return new CustomException(DatabaseErrors.LANDLORD_NOT_FOUND);
+                });
+    }
+
+    private ApartmentEntity getApartmentEntity(Long id) {
+        return apartmentRepository.findById(id)
+                .orElseThrow(() -> {
+                    LOGGER.error("Apartment not found with id: {}", id);
+                    return new CustomException(DatabaseErrors.APARTMENT_NOT_FOUND);
                 });
     }
 }

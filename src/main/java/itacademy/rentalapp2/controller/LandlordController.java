@@ -4,19 +4,20 @@ import itacademy.rentalapp2.dto.*;
 import itacademy.rentalapp2.service.LandlordService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.List;
 
 @Controller
 @RequestMapping("/landlords")
 @RequiredArgsConstructor
 public class LandlordController {
+    public static final Logger LOGGER = LoggerFactory.getLogger(LandlordController.class);
     private final LandlordService landlordService;
 
     @GetMapping
@@ -82,28 +83,18 @@ public class LandlordController {
     public String showAddApartmentsPage(
             @PathVariable Long id,
             @ModelAttribute("apartmentFilter") ApartmentFilterDto apartmentFilter,
-            @RequestParam(value = "selectedApartmentIds", required = false) List<String> selectedApartmentIds,
-            @RequestParam(value = "pageNumber", defaultValue = "1") int pageNumber,
             Model model) {
-        apartmentFilter.setPageNumber(pageNumber);
-        Page<ApartmentDto> apartmentsPage = landlordService.getAllApartments(apartmentFilter, id);
-
+        Page<ApartmentDto> apartmentsPage = landlordService.getAllApartments(apartmentFilter);
         model.addAttribute("apartments", apartmentsPage);
         model.addAttribute("id", id);
-        model.addAttribute("selectedApartmentIds", selectedApartmentIds != null ? selectedApartmentIds : Collections.emptyList());
-
         return "landlords/add-apartments";
     }
 
     @PostMapping("/{id}/add-apartments")
-    public String addApartmentsToLandlord(
+    public String joinApartmentToLandlord(
             @PathVariable Long id,
-            @RequestParam(value = "apartmentIds", required = false) List<Long> apartmentIds,
-            Model model) {
-        if (apartmentIds == null) {
-            apartmentIds = Collections.emptyList();
-        }
-        landlordService.addApartmentsToLandlord(id, apartmentIds);
-        return "redirect:/landlords/{id}/apartments";
+            @RequestParam Long apartmentId) {
+        landlordService.joinApartmentToLandlord(id, apartmentId);
+        return "redirect:/landlords/" + id + "/apartments";
     }
 }
