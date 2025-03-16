@@ -14,4 +14,6 @@ public class DatabaseErrors {
     public static final String LANDLORD_ALREADY_EXISTS = "Арендодатель с таким e-mail уже существует! " +
             "Введите другие данные.";
     public static final String LANDLORD_NOT_FOUND = "Арендодатель не найден";
+
+    public static final String APARTMENT_NOT_LINKED_TO_LANDLORD  = "Квартира не присоединена к арендодателю";
 }

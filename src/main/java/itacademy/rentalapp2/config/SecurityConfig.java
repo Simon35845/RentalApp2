@@ -44,6 +44,7 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher("/landlords/edit/*")).hasAuthority("ADMIN")
                         .requestMatchers(antMatcher("/landlords/*/apartments")).hasAnyAuthority("ADMIN", "USER")
                         .requestMatchers(antMatcher("/landlords/*/add-apartments")).hasAuthority("ADMIN")
+                        .requestMatchers(antMatcher("/landlords/*/apartments/detach")).hasAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin.defaultSuccessUrl("/main", true)
                         .permitAll()).logout(logout -> logout.logoutSuccessUrl("/login"));

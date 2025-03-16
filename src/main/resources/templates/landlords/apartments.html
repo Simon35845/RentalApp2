@@ -81,8 +81,10 @@
         <td th:text="${apartment.address.street}"></td>
         <td th:text="${apartment.address.houseNumber}"></td>
         <td sec:authorize="hasAuthority('ADMIN')">
-            <a class="update-button" th:href="@{/apartments/edit/{id}(id=${apartment.id})}">Изменить</a>
-            <a class="delete-button" th:href="@{/apartments/delete/{id}(id=${apartment.id})}">Удалить</a>
+            <form th:action="@{/landlords/{id}/apartments/detach(id=${id})}" method="post">
+                <input type="hidden" name="apartmentId" th:value="${apartment.id}">
+                <button class="delete-button" type="submit">Отвязать</button>
+            </form>
         </td>
     </tr>
     </tbody>

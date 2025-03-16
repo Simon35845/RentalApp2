@@ -167,7 +167,7 @@ public class LandlordServiceImpl implements LandlordService {
 
     @Override
     public Page<ApartmentDto> getAllApartments(ApartmentFilterDto filter) {
-        LOGGER.debug("Fetching all apartments with filter: ё{}", filter);
+        LOGGER.debug("Fetching all apartments with filter: {}", filter);
         try {
             return apartmentService.getApartmentsByFilter(filter);
         } catch (Exception e) {
@@ -178,16 +178,37 @@ public class LandlordServiceImpl implements LandlordService {
 
     @Override
     public void joinApartmentToLandlord(Long landlordId, Long apartmentId) {
-        LOGGER.debug("Join apartment to landlord with id: {}", landlordId);
+        LOGGER.debug("Join apartment with id {} to landlord with id: {}", apartmentId, landlordId);
         try {
             ApartmentEntity apartmentEntity = getApartmentEntity(apartmentId);
             LandlordEntity landlordEntity = getLandlordEntity(landlordId);
             apartmentEntity.setLandlord(landlordEntity);
-            ApartmentEntity updatedEntity = apartmentRepository.save(apartmentEntity);
-            LOGGER.debug("Apartment to landlord joined successfully: {}", updatedEntity);
+            apartmentRepository.save(apartmentEntity);
+            LOGGER.debug("Apartment with id {} joined to landlord with id {} successfully: ",
+                    apartmentId, landlordId);
         } catch (Exception e) {
-            LOGGER.error("Error updating apartments for landlord with id: {}", landlordId, e);
-            throw new CustomException(ServiceErrors.UPDATE_ERROR);
+            LOGGER.error("Error joining apartment with id {} to landlord with id: {}", apartmentId, landlordId, e);
+            throw new CustomException(ServiceErrors.JOIN_ERROR);
+        }
+    }
+
+    @Override
+    public void detachApartmentFromLandlord(Long landlordId, Long apartmentId) {
+        LOGGER.debug("Detach apartment with id {} from landlord with id {}", apartmentId, landlordId);
+        try {
+            ApartmentEntity apartmentEntity = getApartmentEntity(apartmentId);
+            if (apartmentEntity.getLandlord() != null && apartmentEntity.getLandlord().getId().equals(landlordId)) {
+                apartmentEntity.setLandlord(null);
+                apartmentRepository.save(apartmentEntity);
+                LOGGER.debug("Apartment with id {} detached from landlord with id {} successfully: ",
+                        apartmentId, landlordId);
+            } else {
+                LOGGER.error("Apartment with id {} is not detached from landlord with id {}", apartmentId, landlordId);
+                throw new CustomException(DatabaseErrors.APARTMENT_NOT_LINKED_TO_LANDLORD);
+            }
+        } catch (Exception e) {
+            LOGGER.error("Error detaching apartment with id {} from landlord with id {}", apartmentId, landlordId, e);
+            throw new CustomException(ServiceErrors.DETACH_ERROR);
         }
     }
 

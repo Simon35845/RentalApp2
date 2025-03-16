@@ -22,5 +22,7 @@ public interface LandlordService {
     Page<ApartmentDto> getAllApartments(ApartmentFilterDto filter);
 
     void joinApartmentToLandlord(Long landlordId, Long apartmentId);
+
+    void detachApartmentFromLandlord(Long landlordId, Long apartmentId);
 }
 

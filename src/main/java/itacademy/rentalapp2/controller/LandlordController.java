@@ -80,10 +80,9 @@ public class LandlordController {
     }
 
     @GetMapping("/{id}/add-apartments")
-    public String showAddApartmentsPage(
-            @PathVariable Long id,
-            @ModelAttribute("apartmentFilter") ApartmentFilterDto apartmentFilter,
-            Model model) {
+    public String showAddApartmentsPage(@PathVariable Long id,
+                                        @ModelAttribute("apartmentFilter") ApartmentFilterDto apartmentFilter,
+                                        Model model) {
         Page<ApartmentDto> apartmentsPage = landlordService.getAllApartments(apartmentFilter);
         model.addAttribute("apartments", apartmentsPage);
         model.addAttribute("id", id);
@@ -91,10 +90,16 @@ public class LandlordController {
     }
 
     @PostMapping("/{id}/add-apartments")
-    public String joinApartmentToLandlord(
-            @PathVariable Long id,
-            @RequestParam Long apartmentId) {
+    public String joinApartmentToLandlord(@PathVariable Long id,
+                                          @RequestParam Long apartmentId) {
         landlordService.joinApartmentToLandlord(id, apartmentId);
+        return "redirect:/landlords/" + id + "/apartments";
+    }
+
+    @PostMapping("/{id}/apartments/detach")
+    public String detachApartmentFromLandlord(@PathVariable Long id,
+                                              @RequestParam Long apartmentId) {
+        landlordService.detachApartmentFromLandlord(id, apartmentId);
         return "redirect:/landlords/" + id + "/apartments";
     }
 }

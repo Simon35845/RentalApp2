@@ -6,5 +6,7 @@ public class ServiceErrors {
     public static final String DELETE_ERROR = "Ошибка удаления";
     public static final String FIND_BY_ID_ERROR = "Ошибка поиска по id";
     public static final String FIND_BY_FILTER_ERROR = "Ошибка поиска по фильтру";
+    public static final String JOIN_ERROR = "Ошибка присоединения сущности";
+    public static final String DETACH_ERROR = "Ошибка отсоединения сущности";
     public static final String UNEXPECTED_ERROR = "Неожиданная ошибка.";
 }
