@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class ApartmentController {
     private final ApartmentService apartmentService;
-
     @GetMapping
     public String getAllApartments(@ModelAttribute("apartmentFilter") ApartmentFilterDto apartmentFilter,
                                    Model model) {
@@ -58,6 +57,13 @@ public class ApartmentController {
         return "redirect:/apartments";
     }
 
+    @GetMapping("/choose-edit/{id}")
+    public String chooseEdit(@PathVariable Long id, Model model) {
+        ApartmentDto apartmentDto = apartmentService.getApartmentById(id);
+        model.addAttribute("apartment", apartmentDto);
+        return "apartments/choose-edit";
+    }
+
     @GetMapping("/edit1/{id}")
     public String showEditForm1(@PathVariable Long id, Model model) {
         ApartmentDto apartmentDto = apartmentService.getApartmentById(id);
@@ -73,6 +79,24 @@ public class ApartmentController {
             return "apartments/edit1";
         }
         apartmentService.updateApartment(id, apartmentDto);
+        return "redirect:/apartments";
+    }
+
+    @GetMapping("/edit2/{id}")
+    public String showEditForm2(@PathVariable Long id,
+                                @ModelAttribute("addressFilter") AddressFilterDto addressFilter,
+                                Model model) {
+        Page<AddressDto> addressesPage = apartmentService.getAllAddresses(addressFilter);
+        model.addAttribute("addresses", addressesPage);
+        model.addAttribute("addressFilter", addressFilter);
+        model.addAttribute("apartmentId", id);
+        return "apartments/edit2";
+    }
+
+    @PostMapping("/edit2/{id}")
+    public String updateApartment2(@PathVariable Long id,
+                                   @RequestParam Long addressId) {
+        apartmentService.joinAnotherAddress(id, addressId);
         return "redirect:/apartments";
     }
 

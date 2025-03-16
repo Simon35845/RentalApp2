@@ -13,4 +13,5 @@ public interface ApartmentService {
     ApartmentDto getApartmentById(Long id);
     Page<ApartmentDto> getApartmentsByFilter(ApartmentFilterDto filter);
     Page<AddressDto> getAllAddresses(AddressFilterDto filter);
+    void joinAnotherAddress(Long apartmentId, Long addressId);
 }

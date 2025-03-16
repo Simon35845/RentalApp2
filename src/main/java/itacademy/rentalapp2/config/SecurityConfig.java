@@ -36,6 +36,7 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher("/apartments/save1")).hasAuthority("ADMIN")
                         .requestMatchers(antMatcher("/apartments/save2")).hasAuthority("ADMIN")
                         .requestMatchers(antMatcher("/apartments/delete/*")).hasAuthority("ADMIN")
+                        .requestMatchers(antMatcher("/apartments/choose-edit/*")).hasAuthority("ADMIN")
                         .requestMatchers(antMatcher("/apartments/edit1/*")).hasAuthority("ADMIN")
                         .requestMatchers(antMatcher("/apartments/edit2/*")).hasAuthority("ADMIN")
                         .requestMatchers(antMatcher("/landlords")).hasAnyAuthority("ADMIN", "USER")

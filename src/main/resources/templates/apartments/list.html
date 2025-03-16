@@ -81,7 +81,7 @@
         <td th:text="${apartment.address.street}"></td>
         <td th:text="${apartment.address.houseNumber}"></td>
         <td sec:authorize="hasAuthority('ADMIN')">
-            <a class="orange-button-small" th:href="@{/apartments/edit1/{id}(id=${apartment.id})}">Изменить</a>
+            <a class="orange-button-small" th:href="@{/apartments/choose-edit/{id}(id=${apartment.id})}">Изменить</a>
             <a class="red-button-small" th:href="@{/apartments/delete/{id}(id=${apartment.id})}">Удалить</a>
         </td>
     </tr>

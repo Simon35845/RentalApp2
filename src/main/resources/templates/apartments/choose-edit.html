@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Choose apartment edit</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<h1>Выберите тип изменения квартиры</h1>
+<br/>
+<form method="post" th:action="@{/logout}">
+    <button class="violet-button-big" type="submit">LOGOUT</button>
+</form>
+
+<div class="button-container-1">
+    <a class="blue-button-big" th:href="@{/apartments/edit1/{id}(id=${apartment.id})}">Редактировать квартиру</a>
+    <a class="blue-button-big" th:href="@{/apartments/edit2/{id}(id=${apartment.id})}">Выбрать другой адрес</a>
+</div>
+</body>
+</html>

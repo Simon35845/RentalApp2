@@ -57,9 +57,10 @@ public class ApartmentServiceImpl implements ApartmentService {
     public ApartmentDto updateApartment(Long id, ApartmentDto apartmentDto) {
         LOGGER.debug("Updating apartment with id {}: {}", id, apartmentDto);
         try {
-            ApartmentEntity apartmentEntity = setApartmentEntity(id, apartmentDto);
-            AddressEntity addressEntity = getAddressEntity(apartmentEntity.getId());
-            apartmentEntity.setAddress(addressEntity);
+            ApartmentEntity fetchedEntity = getApartmentEntity(id);
+            ApartmentEntity apartmentEntity = conversionService.convert(apartmentDto, ApartmentEntity.class);
+            apartmentEntity.setId(fetchedEntity.getId());
+            apartmentEntity.setAddress(fetchedEntity.getAddress());
             ApartmentEntity updatedEntity = apartmentRepository.save(apartmentEntity);
             LOGGER.debug("Apartment updated successfully: {}", updatedEntity);
             return conversionService.convert(updatedEntity, ApartmentDto.class);
@@ -143,6 +144,22 @@ public class ApartmentServiceImpl implements ApartmentService {
         }
     }
 
+    @Override
+    public void joinAnotherAddress(Long apartmentId, Long addressId) {
+        LOGGER.debug("Join apartment with id {} to address with id: {}", apartmentId, addressId);
+        try {
+            ApartmentEntity apartmentEntity = getApartmentEntity(apartmentId);
+            AddressEntity addressEntity = getAddressEntity(addressId);
+            apartmentEntity.setAddress(addressEntity);
+            apartmentRepository.save(apartmentEntity);
+            LOGGER.debug("Apartment with id {} joined to address with id {} successfully: ",
+                    apartmentId, addressId);
+        } catch (Exception e) {
+            LOGGER.error("Error joining apartment with id {} to address with id: {}", apartmentId, addressId, e);
+            throw new CustomException(ServiceErrors.JOIN_ERROR);
+        }
+    }
+
     private AddressEntity getAddressEntity(Long id) {
         return addressRepository.findById(id)
                 .orElseThrow(() -> {
@@ -157,14 +174,5 @@ public class ApartmentServiceImpl implements ApartmentService {
                     LOGGER.error("Apartment not found with id: {}", id);
                     return new CustomException(DatabaseErrors.APARTMENT_NOT_FOUND);
                 });
-    }
-
-    private ApartmentEntity setApartmentEntity(Long id, ApartmentDto apartmentDto) {
-        ApartmentEntity apartmentEntity = getApartmentEntity(id);
-        apartmentEntity.setApartmentNumber(apartmentDto.getApartmentNumber());
-        apartmentEntity.setFloor(apartmentDto.getFloor());
-        apartmentEntity.setCountOfRooms(apartmentDto.getCountOfRooms());
-        apartmentEntity.setTotalSquare(apartmentDto.getTotalSquare());
-        return apartmentEntity;
     }
 }
