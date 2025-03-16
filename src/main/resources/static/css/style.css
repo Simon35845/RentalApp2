@@ -13,20 +13,34 @@ th, td {
 }
 
 th {
-    background-color: rgba(204, 225, 216, 0.7);
+    background-color: rgba(209, 191, 237, 0.7);
 }
 
 td {
-    background-color: rgba(230, 230, 200, 0.78);
+    background-color: rgba(232, 232, 166, 0.74);
 }
 
-.save-button,
-.update-button,
-.delete-button,
-.save-link-button,
-.list-link-button,
-.pagination-button,
-.main-link-button {
+.green-button-small,
+.orange-button-small,
+.red-button-small,
+.light-blue-button-small {
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.green-button-big,
+.orange-button-big,
+.blue-button-big,
+.magenta-button-big,
+.pink-button-big,
+.violet-button-big {
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
@@ -38,29 +52,37 @@ td {
     display: inline-block;
 }
 
-.update-button {
-    background-color: #FF881F;
-}
-
-.delete-button {
+.red-button-small {
     background-color: #f44336;
 }
 
-.list-link-button {
-    background-color: #007BFF;
+.orange-button-small {
+    background-color: #FF881F;
 }
 
-.save-button,
-.save-link-button {
+.green-button-small,
+.green-button-big {
     background-color: #43a600;
 }
 
-.main-link-button {
-    background-color: #8f55cc;
+.light-blue-button-small {
+    background-color: #43a8df;
 }
 
-.pagination-button {
-    background-color: #ff00a6;
+.blue-button-big {
+    background-color: #245cf1;
+}
+
+.violet-button-big {
+    background-color: #5927b1;
+}
+
+.magenta-button-big {
+    background-color: #c436e3;
+}
+
+.pink-button-big {
+    background-color: #ec498d;
 }
 
 .button-container-1 {
@@ -76,7 +98,7 @@ td {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
 }
 
 .filter-container {
@@ -113,19 +135,6 @@ td {
     margin-bottom: 15px;
 }
 
-.view-button {
-    padding: 5px 10px;
-    background-color: #3498db; /* Синий цвет */
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 14px;
-}
-
-.view-button:hover {
-    background-color: #2980b9; /* Темно-синий цвет при наведении */
-}
-
 .pagination-container {
     display: flex;
     justify-content: start;
@@ -134,12 +143,15 @@ td {
     margin-bottom: 20px;
 }
 
-.save-button:hover,
-.update-button:hover,
-.delete-button:hover,
-.save-link-button:hover,
-.list-link-button:hover,
-.pagination-button,
-.main-link-button:hover {
+.green-button-small:hover,
+.orange-button-small:hover,
+.red-button-small:hover,
+.light-blue-button-small:hover,
+.green-button-big:hover,
+.orange-button-big:hover,
+.blue-button-big:hover,
+.magenta-button-big,
+.pink-button-big,
+.violet-button-big:hover {
     opacity: 0.8;
 }

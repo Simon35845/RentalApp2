@@ -8,7 +8,7 @@
 <body>
 <h1>Добавление новой квартиры - шаг 1</h1>
 <form class="form-field" method="post" th:action="@{/logout}">
-    <button class="main-link-button" type="submit">LOGOUT</button>
+    <button class="violet-button-big" type="submit">LOGOUT</button>
 </form>
 
 <div class="filter-container">
@@ -25,7 +25,7 @@
             </div>
         </div>
         <br/>
-        <button class="pagination-button" type="submit">Фильтрация</button>
+        <button class="magenta-button-big" type="submit">Фильтрация</button>
     </form>
 </div>
 
@@ -48,7 +48,7 @@
         <td>
             <form th:action="@{/apartments/save1}" method="post">
                 <input type="hidden" name="addressId" th:value="${address.id}">
-                <button class="save-button" type="submit">Выбрать</button>
+                <button class="green-button-small" type="submit">Выбрать</button>
             </form>
         </td>
     </tr>
@@ -60,13 +60,13 @@
         <input type="hidden" th:name="city" th:value="${addressFilter.city}">
         <input type="hidden" th:name="street" th:value="${addressFilter.street}">
         <input type="hidden" th:name="pageNumber" th:value="${addresses.number}">
-        <button type="submit" class="pagination-button">Предыдущая страница</button>
+        <button type="submit" class="pink-button-big">&laquo; Предыдущая страница</button>
     </form>
     <form th:action="@{/apartments/save1}" method="get" th:if="${addresses.hasNext()}">
         <input type="hidden" th:name="city" th:value="${addressFilter.city}">
         <input type="hidden" th:name="street" th:value="${addressFilter.street}">
         <input type="hidden" th:name="pageNumber" th:value="${addresses.number + 2}">
-        <button type="submit" class="pagination-button">Следующая страница</button>
+        <button type="submit" class="pink-button-big">Следующая страница &raquo;</button>
     </form>
 </div>
 
@@ -78,7 +78,7 @@
         <input type="hidden" th:name="city" th:value="${addressFilter.city}">
         <input type="hidden" th:name="street" th:value="${addressFilter.street}">
         <input type="hidden" th:name="houseNumber" th:value="${addressFilter.houseNumber}">
-        <button type="submit" class="pagination-button">Перейти</button>
+        <button type="submit" class="magenta-button-big">Перейти</button>
     </form>
 </div>
 
@@ -87,8 +87,8 @@
 </div>
 
 <div class="button-container-1">
-    <a class="list-link-button" th:href="@{/apartments}">Вернуться к списку квартир</a>
-    <a class="main-link-button" th:href="@{/main}">Перейти на главную страницу</a>
+    <a class="blue-button-big" th:href="@{/apartments}">Вернуться к списку квартир</a>
+    <a class="violet-button-big" th:href="@{/main}">Перейти на главную страницу</a>
 </div>
 </body>
 </html>

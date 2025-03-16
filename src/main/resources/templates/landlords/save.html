@@ -8,7 +8,7 @@
 <body>
 <h1>Добавление нового арендодателя</h1>
 <form class="form-field" method="post" th:action="@{/logout}">
-    <button class="main-link-button" type="submit">LOGOUT</button>
+    <button class="violet-button-big" type="submit">LOGOUT</button>
 </form>
 
 <form th:action="@{/landlords/save}" th:object="${landlord}" method="post">
@@ -33,13 +33,13 @@
         <input type="text" id="email" th:field="*{email}" required>
     </div>
     <div class="button-container-1">
-        <button class="save-button" type="submit">Сохранить</button>
+        <button class="green-button-big" type="submit">Сохранить</button>
     </div>
 </form>
 
 <div class="button-container-1">
-    <a class="list-link-button" th:href="@{/landlords}">Вернуться к списку арендодателей</a>
-    <a class="main-link-button" th:href="@{/main}">Перейти на главную страницу</a>
+    <a class="blue-button-big" th:href="@{/landlords}">Вернуться к списку арендодателей</a>
+    <a class="violet-button-big" th:href="@{/main}">Перейти на главную страницу</a>
 </div>
 </body>
 </html>

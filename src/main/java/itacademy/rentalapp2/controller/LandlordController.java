@@ -73,6 +73,8 @@ public class LandlordController {
     public String getApartments(@PathVariable Long id,
                                 @ModelAttribute("apartmentFilter") ApartmentFilterDto apartmentFilter,
                                 Model model) {
+        LandlordDto landlordDto = landlordService.getLandlordById(id);
+        model.addAttribute("landlord", landlordDto);
         Page<ApartmentDto> apartmentsPage = landlordService.getApartmentsByLandlordId(id, apartmentFilter);
         model.addAttribute("apartments", apartmentsPage);
         model.addAttribute("apartmentFilter", apartmentFilter);
