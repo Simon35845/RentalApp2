@@ -56,7 +56,8 @@ td {
     background-color: #f44336;
 }
 
-.orange-button-small {
+.orange-button-small,
+.orange-button-big {
     background-color: #FF881F;
 }
 
