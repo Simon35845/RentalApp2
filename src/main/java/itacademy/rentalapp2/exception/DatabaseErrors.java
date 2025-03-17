@@ -15,5 +15,11 @@ public class DatabaseErrors {
             "Введите другие данные.";
     public static final String LANDLORD_NOT_FOUND = "Арендодатель не найден";
 
-    public static final String APARTMENT_NOT_LINKED_TO_LANDLORD  = "Квартира не присоединена к арендодателю";
+    public static final String APARTMENT_NOT_LINKED_TO_LANDLORD  = "Квартира не привязана к арендодателю";
+
+    public static final String TENANT_ALREADY_EXISTS = "Квартиросъемщик с таким e-mail уже существует! " +
+            "Введите другие данные.";
+    public static final String TENANT_NOT_FOUND = "Квартиросъемщик не найден";
+
+    public static final String APARTMENT_NOT_LINKED_TO_TENANT  = "Квартира не привязана к квартиросъемщику";
 }

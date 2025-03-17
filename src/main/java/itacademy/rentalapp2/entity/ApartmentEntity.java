@@ -39,7 +39,7 @@ public class ApartmentEntity {
     @JoinColumn(name = "landlord_id")
     private LandlordEntity landlord;
 
-    @ManyToMany(mappedBy = "apartments", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "apartments", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Builder.Default
     private Set<TenantEntity> tenants = new HashSet<>();
 }

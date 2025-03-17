@@ -203,7 +203,7 @@ public class LandlordServiceImpl implements LandlordService {
                 LOGGER.debug("Apartment with id {} detached from landlord with id {} successfully: ",
                         apartmentId, landlordId);
             } else {
-                LOGGER.error("Apartment with id {} is not detached from landlord with id {}", apartmentId, landlordId);
+                LOGGER.error("Apartment with id {} is not linked to landlord with id {}", apartmentId, landlordId);
                 throw new CustomException(DatabaseErrors.APARTMENT_NOT_LINKED_TO_LANDLORD);
             }
         } catch (Exception e) {

@@ -8,21 +8,13 @@ import org.springframework.data.domain.Page;
 
 public interface LandlordService {
     LandlordDto saveLandlord(LandlordDto landlordDto);
-
     LandlordDto updateLandlord(Long id, LandlordDto landlordDto);
-
     void deleteLandlord(Long id);
-
     LandlordDto getLandlordById(Long id);
-
     Page<LandlordDto> getLandlordsByFilter(LandlordFilterDto filter);
-
-    Page<ApartmentDto> getApartmentsByLandlordId(Long landlordId, ApartmentFilterDto filter);
-
+    Page<ApartmentDto> getApartmentsByLandlordId(Long id, ApartmentFilterDto filter);
     Page<ApartmentDto> getAllApartments(ApartmentFilterDto filter);
-
     void joinApartmentToLandlord(Long landlordId, Long apartmentId);
-
     void detachApartmentFromLandlord(Long landlordId, Long apartmentId);
 }
 

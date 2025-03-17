@@ -86,4 +86,14 @@ public class ApartmentSpecification {
             return criteriaBuilder.equal(root.get(ApartmentEntity_.landlord).get(LandlordEntity_.id), landlordId);
         };
     }
+
+    public static Specification<ApartmentEntity> byTenantId(Long tenantId) {
+        return (root, query, criteriaBuilder) -> {
+            if (tenantId == null) {
+                return criteriaBuilder.conjunction();
+            }
+            Join<ApartmentEntity, TenantEntity> tenantJoin = root.join(ApartmentEntity_.tenants);
+            return criteriaBuilder.equal(tenantJoin.get(TenantEntity_.id), tenantId);
+        };
+    }
 }
