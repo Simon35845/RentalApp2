@@ -12,7 +12,11 @@
              relativeToChangelogFile="true"/>
     <include file="V1.0.0/2025-03-15-create-table-landlords.xml"
              relativeToChangelogFile="true"/>
+    <include file="V1.0.0/2025-03-17-create-table-tenants.xml"
+             relativeToChangelogFile="true"/>
     <include file="V1.0.0/2025-03-08-create-table-apartments.xml"
+             relativeToChangelogFile="true"/>
+    <include file="V1.0.0/2025-03-17-create-table-tenants-apartments.xml"
              relativeToChangelogFile="true"/>
     <include file="V1.0.0/2025-03-04-insert-addresses-data.xml"
              relativeToChangelogFile="true"/>
