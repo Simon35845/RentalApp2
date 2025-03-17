@@ -3,6 +3,9 @@ package itacademy.rentalapp2.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Builder
 @Data
 @AllArgsConstructor
@@ -35,4 +38,8 @@ public class ApartmentEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "landlord_id")
     private LandlordEntity landlord;
+
+    @ManyToMany(mappedBy = "apartments", fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<TenantEntity> tenants = new HashSet<>();
 }
