@@ -52,7 +52,10 @@ public class SecurityConfig {
                         .requestMatchers(antMatcher("/tenants")).hasAnyAuthority("ADMIN", "USER")
                         .requestMatchers(antMatcher("/tenants/save")).hasAuthority("ADMIN")
                         .requestMatchers(antMatcher("/tenants/edit/*")).hasAuthority("ADMIN")
-                        .requestMatchers(antMatcher("/landlords/delete/*")).hasAuthority("ADMIN")
+                        .requestMatchers(antMatcher("/tenants/delete/*")).hasAuthority("ADMIN")
+                        .requestMatchers(antMatcher("/tenants/*/apartments")).hasAnyAuthority("ADMIN", "USER")
+                        .requestMatchers(antMatcher("/tenants/*/add-apartments")).hasAuthority("ADMIN")
+                        .requestMatchers(antMatcher("/tenants/*/apartments/detach")).hasAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(formLogin -> formLogin.defaultSuccessUrl("/main", true)
                         .permitAll()).logout(logout -> logout.logoutSuccessUrl("/login"));

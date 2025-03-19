@@ -102,6 +102,15 @@ td {
     gap: 10px;
 }
 
+.button-container-3 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+    max-width: 400px;
+    justify-items: start;
+}
+
 .filter-container {
     display: flex;
     justify-content: space-between;
