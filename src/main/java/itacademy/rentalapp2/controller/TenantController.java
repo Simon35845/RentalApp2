@@ -1,7 +1,6 @@
 package itacademy.rentalapp2.controller;
 
 import itacademy.rentalapp2.dto.*;
-import itacademy.rentalapp2.service.LandlordService;
 import itacademy.rentalapp2.service.TenantService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -70,39 +69,39 @@ public class TenantController {
         return "redirect:/tenants";
     }
 
-//    @GetMapping("/{id}/apartments")
-//    public String getApartments(@PathVariable Long id,
-//                                @ModelAttribute("apartmentFilter") ApartmentFilterDto apartmentFilter,
-//                                Model model) {
-//        LandlordDto landlordDto = landlordService.getLandlordById(id);
-//        model.addAttribute("landlord", landlordDto);
-//        Page<ApartmentDto> apartmentsPage = landlordService.getApartmentsByLandlordId(id, apartmentFilter);
-//        model.addAttribute("apartments", apartmentsPage);
-//        model.addAttribute("apartmentFilter", apartmentFilter);
-//        return "landlords/apartments";
-//    }
-//
-//    @GetMapping("/{id}/add-apartments")
-//    public String showAddApartmentsPage(@PathVariable Long id,
-//                                        @ModelAttribute("apartmentFilter") ApartmentFilterDto apartmentFilter,
-//                                        Model model) {
-//        Page<ApartmentDto> apartmentsPage = landlordService.getAllApartments(apartmentFilter);
-//        model.addAttribute("apartments", apartmentsPage);
-//        model.addAttribute("id", id);
-//        return "landlords/add-apartments";
-//    }
-//
-//    @PostMapping("/{id}/add-apartments")
-//    public String joinApartmentToLandlord(@PathVariable Long id,
-//                                          @RequestParam Long apartmentId) {
-//        landlordService.joinApartmentToLandlord(id, apartmentId);
-//        return "redirect:/landlords/" + id + "/apartments";
-//    }
-//
-//    @PostMapping("/{id}/apartments/detach")
-//    public String detachApartmentFromLandlord(@PathVariable Long id,
-//                                              @RequestParam Long apartmentId) {
-//        landlordService.detachApartmentFromLandlord(id, apartmentId);
-//        return "redirect:/landlords/" + id + "/apartments";
-//    }
+    @GetMapping("/{id}/apartments")
+    public String getApartments(@PathVariable Long id,
+                                @ModelAttribute("apartmentFilter") ApartmentFilterDto apartmentFilter,
+                                Model model) {
+        TenantDto tenantDto = tenantService.getTenantById(id);
+        model.addAttribute("tenant", tenantDto);
+        Page<ApartmentDto> apartmentsPage = tenantService.getApartmentsByTenantId(id, apartmentFilter);
+        model.addAttribute("apartments", apartmentsPage);
+        model.addAttribute("apartmentFilter", apartmentFilter);
+        return "tenants/apartments";
+    }
+
+    @GetMapping("/{id}/add-apartments")
+    public String showAddApartmentsPage(@PathVariable Long id,
+                                        @ModelAttribute("apartmentFilter") ApartmentFilterDto apartmentFilter,
+                                        Model model) {
+        Page<ApartmentDto> apartmentsPage = tenantService.getAllApartments(apartmentFilter);
+        model.addAttribute("apartments", apartmentsPage);
+        model.addAttribute("id", id);
+        return "tenants/add-apartments";
+    }
+
+    @PostMapping("/{id}/add-apartments")
+    public String joinApartmentToTenant(@PathVariable Long id,
+                                          @RequestParam Long apartmentId) {
+        tenantService.joinApartmentToTenant(id, apartmentId);
+        return "redirect:/tenants/" + id + "/apartments";
+    }
+
+    @PostMapping("/{id}/apartments/detach")
+    public String detachApartmentFromTenant(@PathVariable Long id,
+                                              @RequestParam Long apartmentId) {
+        tenantService.detachApartmentFromTenant(id, apartmentId);
+        return "redirect:/tenants/" + id + "/apartments";
+    }
 }
