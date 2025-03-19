@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/schema/security">
+<head>
+    <meta charset="UTF-8">
+    <title>Tenants list</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+
+</head>
+<body>
+    <h1>Список квартиросъемщиков</h1>
+<form method="post" th:action="@{/logout}">
+    <button class="violet-button-big" type="submit">LOGOUT</button>
+</form>
+
+<div class="filter-container">
+    <form th:action="@{tenants}" method="get">
+        <div class="filter-grid">
+            <div class="filter-item">
+                <label for="name">Имя</label>
+                <input type="text" id="name" name="name"
+                       th:value="${tenantFilter.name}" placeholder="Введите имя">
+            </div>
+            <div class="filter-item">
+                <label for="surname">Фамилия</label>
+                <input type="text" id="surname" name="surname"
+                       th:value="${tenantFilter.surname}" placeholder="Введите фамилию">
+            </div>
+            <div class="filter-item">
+                <label for="patronymic">Отчество</label>
+                <input type="text" id="patronymic" name="patronymic"
+                       th:value="${tenantFilter.patronymic}" placeholder="Введите отчество">
+            </div>
+            <div class="filter-item">
+                <label for="age">Возраст:</label>
+                <input type="number" id="age" name="age"
+                       th:value="${tenantFilter.age}" placeholder="Введите возраст">
+            </div>
+            <div class="filter-item">
+                <label for="email">E-mail</label>
+                <input type="text" id="email" name="email"
+                       th:value="${tenantFilter.email}" placeholder="Введите e-mail">
+            </div>
+        </div>
+        <br/>
+        <button class="magenta-button-big" type="submit">Фильтрация</button>
+    </form>
+</div>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Отчество</th>
+        <th>Возраст</th>
+        <th>E-mail</th>
+        <th>Квартиры</th>
+        <th sec:authorize="hasAuthority('ADMIN')">Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="tenant : ${tenants.content}">
+        <td th:text="${tenant.id}"></td>
+        <td th:text="${tenant.name}"></td>
+        <td th:text="${tenant.surname}"></td>
+        <td th:text="${tenant.patronymic}"></td>
+        <td th:text="${tenant.age}"></td>
+        <td th:text="${tenant.email}"></td>
+        <td>
+            <a class="light-blue-button-small" th:href="@{/tenants/{id}/apartments(id=${tenant.id})}">Просмотреть квартиры</a>
+        </td>
+        <td sec:authorize="hasAuthority('ADMIN')">
+            <div class="button-container-2">
+                <a class="orange-button-small" th:href="@{/tenants/edit/{id}(id=${tenant.id})}">Изменить</a>
+                <a class="red-button-small" th:href="@{/tenants/delete/{id}(id=${tenant.id})}">Удалить</a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="pagination-container">
+    <form th:action="@{/tenants}" method="get" th:if="${tenants.hasPrevious()}">
+        <input type="hidden" th:name="name" th:value="${tenantFilter.name}">
+        <input type="hidden" th:name="surname" th:value="${tenantFilter.surname}">
+        <input type="hidden" th:name="patronymic" th:value="${tenantFilter.patronymic}">
+        <input type="hidden" th:name="age" th:value="${tenantFilter.age}">
+        <input type="hidden" th:name="email" th:value="${tenantFilter.email}">
+        <input type="hidden" th:name="pageNumber" th:value="${tenants.number}">
+        <button type="submit" class="pink-button-big">&laquo; Предыдущая страница</button>
+    </form>
+    <form th:action="@{/tenants}" method="get" th:if="${tenants.hasNext()}">
+        <input type="hidden" th:name="name" th:value="${tenantFilter.name}">
+        <input type="hidden" th:name="surname" th:value="${tenantFilter.surname}">
+        <input type="hidden" th:name="patronymic" th:value="${tenantFilter.patronymic}">
+        <input type="hidden" th:name="age" th:value="${tenantFilter.age}">
+        <input type="hidden" th:name="email" th:value="${tenantFilter.email}">
+        <input type="hidden" th:name="pageNumber" th:value="${tenants.number + 2}">
+        <button type="submit" class="pink-button-big">Следующая страница &raquo;</button>
+    </form>
+</div>
+
+<div>
+    <form th:action="@{/tenants}" method="get">
+        <label for="pageNumber">Перейти на страницу:</label>
+        <input type="number" id="pageNumber" name="pageNumber" th:value="${tenants.number + 1}"
+               min="1" th:max="${tenants.totalPages}">
+        <input type="hidden" th:name="city" th:value="${tenantFilter.name}">
+        <input type="hidden" th:name="surname" th:value="${tenantFilter.surname}">
+        <input type="hidden" th:name="patronymic" th:value="${tenantFilter.patronymic}">
+        <input type="hidden" th:name="age" th:value="${tenantFilter.age}">
+        <input type="hidden" th:name="email" th:value="${tenantFilter.email}">
+        <button type="submit" class="magenta-button-big">Перейти</button>
+    </form>
+</div>
+
+<div>
+    <span>Страница [[${tenants.number + 1}]] из [[${tenants.totalPages}]]</span>
+</div>
+
+<div class="button-container-1" sec:authorize="hasAuthority('ADMIN')">
+    <a class="green-button-big" th:href="@{tenants/save}">Добавить нового квартиросъемщика</a>
+</div>
+
+<div class="button-container-1">
+    <a class="violet-button-big" th:href="@{/main}">Перейти на главную страницу</a>
+</div>
+</body>
+</html>
